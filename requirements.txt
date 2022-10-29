@@ -1,4 +1,4 @@
-findspark
+fastparquet
 pandas
-pyspark
+pyarrow
 requests
