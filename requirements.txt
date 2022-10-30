@@ -1,4 +1,2 @@
-fastparquet
 pandas
-pyarrow
 requests
