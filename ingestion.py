@@ -35,10 +35,6 @@ def cleaning_data(df):
 
   return consumption, coverage_rate, region
 
-def saving_data(dataset):
-  dataset.to_parquet("data/processed"+str(dataset)+".parquet.gzip",
-                      compression="gzip")
-
 if __name__ == "__main__":
   url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-cons-def/exports/json"
   path = "data/raw/energy_data.json"
@@ -52,8 +48,3 @@ if __name__ == "__main__":
 
   print("Processing data...")
   consumption, coverage_rate, region = cleaning_data(df)
-
-  print("Saving data...")
-  saving_data(consumption)
-  saving_data(coverage_rate)
-  saving_data(region)
