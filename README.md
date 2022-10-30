@@ -6,7 +6,7 @@
 * [Credits](#credits)
 ## General Info
 
-![ALT](Images/Global_Architecture.drawio)
+![ALT](Images/Global_Architecture.drawio.png)
 
 ## Status
 
