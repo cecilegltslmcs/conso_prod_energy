@@ -12,4 +12,4 @@ The local development was here in order to prepare the script of building the da
 
 This is the entity/association schema of the database. The tool used to realise it is [Looping](https://www.looping-mcd.fr/).
 
-![EA_Schema_Database](Database/Images/EA_Schema.jpg)
+![EA_Schema_Database](Images/EA_Schema.jpg)
