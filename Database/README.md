@@ -10,6 +10,10 @@ The local development was here in order to prepare the script of building the da
 
 ## Conceptual model of the data
 
-This is the entity/association schema of the database. The tool used to realise it is [Looping](https://www.looping-mcd.fr/).
+This is the entity/relationship schema of the database. The tool used to realise it is [Looping](https://www.looping-mcd.fr/).
 
 ![EA_Schema_Database](Images/EA_Schema.jpg)
+
+## Logical model of data
+
+After doing the E/R schema, the LMD was realized. For this step, we used the website [Mocodo](https://www.mocodo.net/).
