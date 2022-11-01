@@ -25,3 +25,7 @@ The result of the LMD is the following :
 **COVERAGE_RATE** (<ins>Id_couverture</ins>, code_insee, date_enreg, heure_eng, tco_thermique, tch_thermique, tco_nucleaire, tch_nucleaire, tco_eolien, tch_eolien, tco_solaire, tch_solaire, tco_hydraulique, tch_hydraulique, tco_bioenergies, tch_bioenergies, _#code_insee.1_)<br>
 
 **REGION** (<ins>code_insee</ins>, libelle_region)
+
+## Physical model of data
+
+The physical model of data is a SQL script used to build the database. The script is readable in this part of the project. 
