@@ -17,3 +17,9 @@ This is the entity/relationship schema of the database. The tool used to realise
 ## Logical model of data
 
 After doing the E/R schema, the LMD was realized. For this step, we used the website [Mocodo](https://www.mocodo.net/).
+
+The result of the LMD is the following : 
+
+**CONSUMPTION** (<ins>Id_consommation</ins>, code_insee, date_enreg, heure_enreg, consommation, thermique, nucleaire, eolien, solaire, hydraulique, pompage, bioenergies, pct_thermique, pct_nucleaire, pct_eolien, pct_solaire, pct_hydraulique, pct_pompage, pct_bioenergies, _#code_insee.1_)<br>
+**COVERAGE_RATE** (<ins>Id_couverture</ins>, code_insee, date_enreg, heure_eng, tco_thermique, tch_thermique, tco_nucleaire, tch_nucleaire, tco_eolien, tch_eolien, tco_solaire, tch_solaire, tco_hydraulique, tch_hydraulique, tco_bioenergies, tch_bioenergies, _#code_insee.1_)<br>
+**REGION** (<ins>code_insee</ins>, libelle_region)
