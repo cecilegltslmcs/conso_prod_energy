@@ -1,6 +1,7 @@
 import requests
 import json
 import pandas as pd
+from sqlalchemy import create_engine
 
 def collecting_data(url):
   try:
@@ -35,6 +36,13 @@ def cleaning_data(df):
 
   return consumption, coverage_rate, region
 
+def sending_database(dataset, name):
+  user = "postgres"
+  password = "admin"
+  engine = create_engine(f'postgresql://{user}:{password}@localhost:5432/energy_consumption')
+  engine.connect()
+  dataset.to_sql(name=name, con=engine, index=False)
+
 if __name__ == "__main__":
   url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-cons-def/exports/json"
   path = "data/raw/energy_data.json"
@@ -48,3 +56,10 @@ if __name__ == "__main__":
 
   print("Processing data...")
   consumption, coverage_rate, region = cleaning_data(df)
+  
+  print("Sending data to database...")
+  sending_database(consumption, "consumption")
+  sending_database(coverage_rate, "coverage_rate")
+  sending_database(region, "region")
+  
+  print("Data Ingestion finished!")
