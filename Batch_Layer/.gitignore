@@ -1,4 +1,3 @@
 data/
 Database/Database_schema.loo
 env
-Ingestion/token.py
