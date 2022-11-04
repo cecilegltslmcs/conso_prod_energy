@@ -1,14 +1,12 @@
-import json
-import matplotlib.pyplot as plt
+import authentification as auth
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import requests
 from sqlalchemy import create_engine
 import streamlit as st
 
-user = "postgres"
-password = "password42!"
+user = auth.user
+password = auth.password
 
 def loading_geojson(url):
     try:
