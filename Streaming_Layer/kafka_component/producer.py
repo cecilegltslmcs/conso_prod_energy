@@ -19,8 +19,7 @@ def get_producer(ip, port=9092):
 
     producer = KafkaProducer(
                 bootstrap_servers = [broker],
-                value_serializer = lambda x: json.dumps(x).encode('utf-8')
-    )
+                value_serializer = lambda x: json.dumps(x).encode('utf-8'))
 
     return producer
 
