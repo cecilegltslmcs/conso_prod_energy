@@ -1,3 +1,4 @@
+import authentification as auth
 import requests
 import json
 import pandas as pd
@@ -39,8 +40,8 @@ def cleaning_data(df):
   return consumption, coverage_rate, region
 
 def sending_database(dataset, name):
-  user = "postgres"
-  password = "password42!"
+  user = auth.user
+  password = auth.password
   engine = create_engine(f'postgresql://{user}:{password}@localhost:5432/energy_consumption')
   engine.connect()
   dataset.to_sql(name=name, con=engine, index=False, if_exists="replace")
