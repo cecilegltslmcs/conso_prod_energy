@@ -1,4 +1,4 @@
-# Energy consumption in France from 2013 to 2022
+# Energy consumption in France from 2012 to 2022
 
 ## Table of contents
 * [General info](#general-info)
