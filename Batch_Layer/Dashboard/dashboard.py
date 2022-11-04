@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import requests
 from sqlalchemy import create_engine
 import streamlit as st
-import time
+
 user = "postgres"
 password = "password42!"
 

@@ -25,7 +25,7 @@ def cleaning_data(df):
   energy_type = ["thermique", "nucleaire", "eolien", "solaire", 
                "hydraulique", "pompage", "bioenergies"]
   for i in energy_type:
-    consumption["%_"+str(i)] = round((consumption[i]/consumption["consommation"]) * 100, 2)
+    consumption["pct_"+str(i)] = round((consumption[i]/consumption["consommation"]) * 100, 2)
   
   coverage_rate = df[["code_insee_region", "date", "heure", "tco_thermique",
                     "tch_thermique", "tco_nucleaire", "tch_nucleaire",
