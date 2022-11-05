@@ -1,8 +1,8 @@
 from pyspark.sql import functions as F
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col
-from pyspark.sql.types import StringType, StructType, StructField, FloatType, IntegerType
-import time
+#from pyspark.sql.types import StringType, StructType, StructField, FloatType, IntegerType
+#import time
 
 ip_server = "localhost:9092"
 topic_name = "electricity_production"
@@ -24,6 +24,8 @@ if __name__ == "__main__":
         .option("subscribe", topic_name)
         .load()
         )
+
+    
     
     query = (df
             .writeStream
