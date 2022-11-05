@@ -25,8 +25,6 @@ if __name__ == "__main__":
         .load()
         )
 
-    
-    
     query = (df
             .writeStream
             .queryName("tests_prod_electricite")
