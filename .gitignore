@@ -4,5 +4,5 @@ Batch_Layer/Ingestion/data/
 Batch_Layer/Ingestion/authentification.py
 Streaming_Layer/app/data.json
 Streaming_Layer/kafka_component/consumer.py
-Streaming_Layer/kafka_component/kafka_zookeeper_lauching
+Streaming_Layer/kafka_component/kafka_zookeeper_launching
 env
