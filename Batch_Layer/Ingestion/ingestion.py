@@ -1,7 +1,12 @@
 from ingestion_module import *
+import authentification as auth
+import warnings
 
 if __name__ == "__main__":
   warnings.simplefilter("ignore")
+  
+  user = auth.user
+  password = password.user
   url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-cons-def/exports/json"
   path = "data/energy_data.json"
 
