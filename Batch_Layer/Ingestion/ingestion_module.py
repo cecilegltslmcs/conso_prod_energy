@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """This module contained the different functions to collect, open, clean, 
 organize and send data to a PostgreSQL. 
-
 """
 
 import authentification as auth
