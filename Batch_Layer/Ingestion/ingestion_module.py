@@ -13,7 +13,7 @@ import warnings
 
 def collecting_data(url : str):
   """Function which sending requests to 
-  the API Odré.
+  the API Odre.
   Return is a json file storage on
   the hard disk.
   
@@ -55,7 +55,18 @@ def opening_data(path: str):
   return df
 
 def cleaning_data(df):
-  """
+  """This function cleans and preprocesses the data 
+  coming from the given dataset. 
+  Return three datasets.
+  
+  Parameters
+  ------
+  df : dataframe
+      Dataframe which need to be cleaned and preprocessed.
+  Return
+  -----
+  Three datasets with the consumption and production information, 
+  coverage_rate and region.
   """
   consumption = df[["code_insee_region", "date", "heure", "consommation",
                   "thermique", "nucleaire", "eolien", "solaire", 
@@ -79,9 +90,31 @@ def cleaning_data(df):
 
   return consumption, coverage_rate, region
 
-def sending_database(dataset, name):
-  user = auth.user
-  password = auth.password
-  engine = create_engine(f'postgresql://{user}:{password}@localhost:5432/energy_consumption')
-  engine.connect()
+def sending_database(dataset, name, user, password):
+  """ Function which connect to the PostgreSQL database
+  and send the cleaned-processed data for storage.
+  
+  Parameters:
+  -------
+  dataset : dataframe
+      Clean dataframe to transfer to the database.
+  name : str
+      Name of the dataframe to transfer to the database.
+  user : str
+      User name to establish the connection to PostgreSQL.
+  password : str
+      Password to identify the user and establish the connection to PostgreSQL.
+  
+  Return
+  -----
+  A message to validate the success of the transfert. 
+  
+  """
+  try:
+    engine = create_engine(f'postgresql://{user}:{password}@localhost:5432/energy_consumption')
+    engine.connect()
+  except:
+    print("Error while connection to the database")
   dataset.to_sql(name=name, con=engine, index=False, if_exists="replace")
+  
+  return "Transfert(s) finished!"
