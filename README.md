@@ -2,6 +2,7 @@
 
 ## Table of contents
 * [General info](#general-info)
+* [Folder organisation](#folder-organisation)
 * [Status](#status)
 * [Credits](#credits)
 
@@ -13,6 +14,45 @@ This architecture is based on a lambda Big Data architecture. It includes two br
 
 The aim of the batch layer is to keep the data in a durable way. The database built for this part of the project will be used for creating dashboard helping to understand the energy consumption and to create machine learning models based on the historical data.
 On the other side, the streaming layer is here to give information in real time about what happens concerning the energy consumption. This part needs the help of different technologies such as MongoDB (NoSQL dabatase), Kafka and Spark Streaming to do its job.
+
+## Folder organisation
+
+.
+└── Energy_consumption/
+    ├── .gitignore
+    ├── README.md
+    ├── build/
+    │   └── docker-compose.yml
+    ├── images
+    └── src/
+        ├── batch_layer/
+        │   ├── database --> Script_database.sql
+        │   ├── images
+        │   ├── packages/
+        │   │   ├── module_ingestion.py
+        │   │   └── module_dashboard.py
+        │   ├── scripts/
+        │   │   ├── ingestion.py
+        │   │   └── dashboard.py
+        │   ├── tests/
+        │   │   ├── test_module_ingestion.py
+        │   │   └── test_module_dashboard.py
+        │   ├── .gitignore
+        │   ├── CHANGELOG.txt
+        │   ├── README.md
+        │   └── requirements.txt
+        └── streaming_layer/
+            ├── packages/
+            │   └── module_kafka.py
+            ├── scripts/
+            │   ├── app.py
+            │   └── producer.py
+            ├── tests/
+            │   └── test_module_kakfa.py
+            ├── .gitignore
+            ├── CHANGELOG.txt
+            ├── README.md
+            └── requirements.txt
 
 ## Status
 
