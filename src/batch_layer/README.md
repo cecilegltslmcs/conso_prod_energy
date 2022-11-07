@@ -19,7 +19,7 @@ The local development was here in order to prepare the script of building the da
 
 This is the entity/relationship schema of the database. The tool used to realise it is [Looping](https://www.looping-mcd.fr/).
 
-![ER_Schema_Database](../Images/ER_Energy_Consumption.png)
+![ER_Schema_Database](images/ER_Energy_Consumption.png)
 
 ## Logical model of data
 
