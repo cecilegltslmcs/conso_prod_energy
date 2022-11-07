@@ -1,6 +1,6 @@
+from packages.module_dashboard import *
 import packages.authentification as auth
 import streamlit as st
-from packages.module_dashboard import *
 
 user = auth.user
 password = auth.password
