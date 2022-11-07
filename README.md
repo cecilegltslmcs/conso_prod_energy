@@ -17,7 +17,7 @@ On the other side, the streaming layer is here to give information in real time 
 
 ## Folder organisation
 
-.
+```.
 └── Energy_consumption/
     ├── .gitignore
     ├── README.md
@@ -53,6 +53,7 @@ On the other side, the streaming layer is here to give information in real time 
             ├── CHANGELOG.txt
             ├── README.md
             └── requirements.txt
+```
 
 ## Status
 
