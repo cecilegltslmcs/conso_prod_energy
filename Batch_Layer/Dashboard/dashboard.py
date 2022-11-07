@@ -4,16 +4,15 @@ import plotly.express as px
 import requests
 from sqlalchemy import create_engine
 import streamlit as st
+from module_dashboard_drawing import *
 
+user = auth.user
+password = auth.password
 url = "https://www.data.gouv.fr/fr/datasets/r/d993e112-848f-4446-b93b-0a9d5997c4a4"
 region_geojson = loading_geojson(url)
 
-@st.experimental_singleton
-def init_connection():
-    return create_engine(f'postgresql://{user}:{password}@localhost:5432/energy_consumption')
-
 try:
-    conn = init_connection()
+    conn = init_connection(user, password)
     print('Connection OK')
 except:
     print('Error while connecting to PostgreSQL')
