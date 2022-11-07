@@ -4,10 +4,6 @@ import plotly.express as px
 import requests
 from sqlalchemy import create_engine
 import streamlit as st
-from module_dashboard_drawing import *
-
-user = auth.user
-password = auth.password
 
 def loading_geojson(url):
     try:
