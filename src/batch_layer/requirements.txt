@@ -1,5 +1,7 @@
 pandas
+plotly
 psycopg2-binary
 requests
 sqlalchemy
+streamlit
 warnings

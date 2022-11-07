@@ -1,10 +1,6 @@
-import authentification as auth
-import pandas as pd
-import plotly.express as px
-import requests
-from sqlalchemy import create_engine
+import packages.authentification as auth
 import streamlit as st
-from module_dashboard_drawing import *
+from packages.module_dashboard import *
 
 user = auth.user
 password = auth.password

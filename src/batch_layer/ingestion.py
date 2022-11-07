@@ -1,18 +1,17 @@
-from ingestion_module import *
-import authentification as auth
+from packages.module_ingestion import *
+import packages.authentification as auth
 import warnings
 
 if __name__ == "__main__":
   warnings.simplefilter("ignore")
   
   user = auth.user
-  password = password.user
+  password = auth.user
   url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-cons-def/exports/json"
-  path = "data/energy_data.json"
+  path = "/data/raw/energy_data.json"
 
   print("Collecting data in progress...")
   collecting_data(url)
-  print("Data obtained!")
 
   print("Opening data...")
   df = opening_data(path)
@@ -21,8 +20,8 @@ if __name__ == "__main__":
   consumption, coverage_rate, region = cleaning_data(df)
   
   print("Sending data to database...")
-  sending_database(consumption, "consumption")
-  sending_database(coverage_rate, "coverage_rate")
-  sending_database(region, "region")
+  sending_database(consumption, "consumption", user, password)
+  sending_database(coverage_rate, "coverage_rate", user, password)
+  sending_database(region, "region", user, password)
   
   print("Data Ingestion finished!")

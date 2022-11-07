@@ -1,4 +1,4 @@
-from module_kafka import *
+from packages.module_kafka import *
 
 if __name__ == "__main__":
     ip = "localhost"

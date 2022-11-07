@@ -3,12 +3,10 @@
 organize and send data to a PostgreSQL. 
 """
 
-import authentification as auth
 import requests
 import json
 import pandas as pd
 from sqlalchemy import create_engine
-import warnings
 
 def collecting_data(url : str):
   """Function which sending requests to 
@@ -32,9 +30,9 @@ def collecting_data(url : str):
     data = response.json()
   except:
     print('Wrong URL')
-  with open('data/energy_data.json', 'w') as f:
+  with open('../data/raw/energy_data.json', 'w') as f:
     json.dump(data, f)
-    return data
+    return "Data from the API obtained"
 
 def opening_data(path: str):
   """ Function which open the data obtained from the API.
@@ -72,8 +70,8 @@ def cleaning_data(df):
                   "hydraulique", "pompage", "bioenergies"]]
   energy_type = ["thermique", "nucleaire", "eolien", "solaire", 
                "hydraulique", "pompage", "bioenergies"]
-  consumption["production_total"] = df["thermique"] + df["nucleaire"] + df["eolien"] +
-                                    df["solaire"] + df["hydraulique"] + df["pompage"] +
+  consumption["production_total"] = df["thermique"] + df["nucleaire"] + df["eolien"] +\
+                                    df["solaire"] + df["hydraulique"] + df["pompage"] +\
                                     df["bioenergies"]
   for i in energy_type:
     consumption["pct_"+str(i)] = round((consumption[i]/consumption["production_total"]) * 100, 2)

@@ -1,4 +1,4 @@
-import authentification as auth
+import batch_layer.packages.authentification as auth
 import pandas as pd
 import plotly.express as px
 import requests
