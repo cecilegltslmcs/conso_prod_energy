@@ -8,7 +8,7 @@ if __name__ == "__main__":
   user = auth.user
   password = auth.user
   url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-cons-def/exports/json"
-  path = "/data/raw/energy_data.json"
+  path = "src/batch_layer/data/raw"
 
   print("Collecting data in progress...")
   collecting_data(url)

@@ -2,7 +2,6 @@
 """This module contained the different functions to collect, open, clean, 
 organize and send data to a PostgreSQL. 
 """
-
 import requests
 import json
 import pandas as pd
@@ -30,7 +29,7 @@ def collecting_data(url : str):
     data = response.json()
   except:
     print('Wrong URL')
-  with open('../data/raw/energy_data.json', 'w') as f:
+  with open('src/batch_layer/data/raw/energy_data.json', 'w') as f:
     json.dump(data, f)
     return "Data from the API obtained"
 
