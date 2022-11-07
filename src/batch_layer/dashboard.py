@@ -24,12 +24,12 @@ if option == "Accueil":
     with col1:
         st.write(' ')
     with col2:
-        st.image("img/logo-odre.svg", width=75)
+        st.image("images/logo-odre.svg", width=75)
     with col3:
         st.write(' ')
     st.header("Bienvenue sur cet outil qui vous permet de consulter l'historique des consommations d'électricité région par région en France.\
                Sélectionnez une analyse sur le menu de gauche pour continuer.")
-    st.image("img/power-lines.jpg")
+    st.image("images/power-lines.jpg")
     st.write("Réalisé par Cécile Guillot - Données provenant de l'API Open Data Réseaux électriques")
 
 if option == "Consommation moyenne (toutes sources confondues)":
