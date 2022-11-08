@@ -1,10 +1,12 @@
+from datetime import datetime
 from packages.module_ingestion import *
 from packages import authentification as auth
 import warnings
 
+
 if __name__ == "__main__":
-  warnings.simplefilter("ignore")
   
+  warnings.simplefilter("ignore")
   user = auth.user
   password = auth.user
   url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-cons-def/exports/json"
