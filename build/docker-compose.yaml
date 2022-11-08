@@ -1,5 +1,4 @@
 version: '3.9'
-LABEL maintainer="cecile.guillot08@protonmail.com"
 
 services:
   ingestion:
@@ -16,7 +15,7 @@ services:
     ports:
     - "5432:5432"
     environment: 
-    POSTGRES_DB = energy_consumption
+      - POSTGRES_DB = energy_consumption
     env_file:
     - env_postgres
     volumes:
@@ -36,7 +35,7 @@ services:
     depends_on:
     - postgres
  
-  streamlit:
+  streamlit-batch:
     container_name: streamlit-batch
     build:
       context: .
@@ -148,7 +147,7 @@ services:
     depends_on:
       - spark-app
 
-  streamlit:
+  streamlit-stream:
     container_name: streamlit-stream
     build:
       context: .
@@ -163,6 +162,6 @@ services:
 volumes:
     pgdata
     mongodata
- network:
+network:
     batch_layer
     streaming_layer

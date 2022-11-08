@@ -66,14 +66,12 @@ def parsing_data(df):
   consumption = df[["code_insee_region", "date", "heure", "consommation",
                   "thermique", "nucleaire", "eolien", "solaire", 
                   "hydraulique", "pompage", "bioenergies"]]
-  consumption.fillna(value=0, inplace=True)
   
   coverage_rate = df[["code_insee_region", "date", "heure", "tco_thermique",
                     "tch_thermique", "tco_nucleaire", "tch_nucleaire",
                     "tco_eolien", "tch_eolien", "tco_solaire", "tch_solaire",
                     "tco_hydraulique", "tch_hydraulique", "tco_bioenergies",
                     "tch_bioenergies"]]
-  coverage_rate.fillna(value=0, inplace=True)
   
   region = df[["code_insee_region", "libelle_region"]]
   region.drop_duplicates(inplace=True)
@@ -90,7 +88,7 @@ def processing_data(df):
   energy_type = ["thermique", "nucleaire", "eolien", "solaire", 
                  "hydraulique", "pompage", "bioenergies"]
   for i in energy_type:
-    df["pct_"+str(i)] = round((df[i]/df["production_total"]) * 100, 2)
+    df["pct_"+str(i)] = (df[i]/df["production_total"]) * 100
     
     return df
   
