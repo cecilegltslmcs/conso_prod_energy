@@ -1,0 +1,11 @@
+pandas
+plotly
+psycopg2-binary
+pytest
+requests
+sqlalchemy
+streamlit
+warnings
+kafka-python
+requests
+pyspark
