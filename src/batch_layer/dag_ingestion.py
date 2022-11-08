@@ -2,7 +2,6 @@ from airflow.decorators import dag, task
 from datetime import datetime
 from packages.module_ingestion import *
 from packages import authentification as auth
-import pendulum
 import warnings
 
 
@@ -26,26 +25,31 @@ if __name__ == "__main__":
     def opening_from_json():
       print("Opening data...")
       df = opening_data(path)
+      return df
     
     @task(task_id="parsing")
     def parsing_data():
       print("Parsing data...")
-      consumption, coverage_rate, region = parsing_data(df)
+      coverage_rate, region = parsing_data(df)
+      return coverage_rate, region
     
     @task(task_id="processing") 
     def processing_parsed_data():
       print("Processing data...")
       consumption = processing_data(consumption)
+      return consumption
   
     @task(task_id="sending consumption to database")
     def send_consumption_data():
       print("Sending consumption data to database...")
       sending_database(dataset=consumption, name="consumption", user=user, password=password)
+      return "Consumption data send to the database"
     
     @task(task_id="sending coverage rate to database")
     def send_coverage_data():
       print("Sending coverage ratedata to database...")
       sending_database(dataset=coverage_rate, name="coverage_rate", user=user, password=password)
+      
     
     print("Data Ingestion finished!")
     
