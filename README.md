@@ -47,7 +47,7 @@ On the other side, the streaming layer is here to give information in real time 
             │   └── test_module_kakfa.py
             ├── .gitignore
             ├── app.py
-            ├──producer.py
+            ├── producer.py
             ├── CHANGELOG.txt
             ├── README.md
             └── requirements.txt
