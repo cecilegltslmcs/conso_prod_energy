@@ -7,6 +7,7 @@ def test_collecting_data():
   assert r.status_code == 200
 
 def test_opening_data():
-  
+  df = opening_data(path)
+  assert df == type(pd.DataFrame)
 
   
