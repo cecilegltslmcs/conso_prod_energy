@@ -1,5 +1,5 @@
 from packages.module_ingestion import *
-import packages.authentification as auth
+from packages import authentification as auth
 import warnings
 
 if __name__ == "__main__":
@@ -8,10 +8,10 @@ if __name__ == "__main__":
   user = auth.user
   password = auth.user
   url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-cons-def/exports/json"
-  path = "src/batch_layer/data/raw"
+  path = "data/raw"
 
   print("Collecting data in progress...")
-  collecting_data(url)
+  collecting_data(url, path)
 
   print("Opening data...")
   df = opening_data(path)

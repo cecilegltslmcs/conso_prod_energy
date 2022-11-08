@@ -7,7 +7,7 @@ import json
 import pandas as pd
 from sqlalchemy import create_engine
 
-def collecting_data(url : str):
+def collecting_data(url : str, path: str):
   """Function which sending requests to 
   the API Odre.
   Return is a json file storage on
@@ -29,7 +29,7 @@ def collecting_data(url : str):
     data = response.json()
   except:
     print('Wrong URL')
-  with open('src/batch_layer/data/raw/energy_data.json', 'w') as f:
+  with open(path, 'w') as f:
     json.dump(data, f)
     return "Data from the API obtained"
 

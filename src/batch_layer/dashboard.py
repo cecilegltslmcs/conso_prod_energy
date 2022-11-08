@@ -1,5 +1,5 @@
-from packages.module_dashboard import *
-import packages.authentification as auth
+from batch_layer.packages.modules.module_dashboard import *
+import batch_layer.packages.modules.authentification as auth
 import streamlit as st
 
 user = auth.user
