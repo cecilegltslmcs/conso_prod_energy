@@ -31,25 +31,23 @@ On the other side, the streaming layer is here to give information in real time 
         │   ├── packages/
         │   │   ├── module_ingestion.py
         │   │   └── module_dashboard.py
-        │   ├── scripts/
-        │   │   ├── ingestion.py
-        │   │   └── dashboard.py
         │   ├── tests/
         │   │   ├── test_module_ingestion.py
         │   │   └── test_module_dashboard.py
         │   ├── .gitignore
         │   ├── CHANGELOG.txt
+        |   ├── ingestion.py
+        │   ├── dashboard.py
         │   ├── README.md
         │   └── requirements.txt
         └── streaming_layer/
             ├── packages/
             │   └── module_kafka.py
-            ├── scripts/
-            │   ├── app.py
-            │   └── producer.py
             ├── tests/
             │   └── test_module_kakfa.py
             ├── .gitignore
+            ├── app.py
+            ├──producer.py
             ├── CHANGELOG.txt
             ├── README.md
             └── requirements.txt
