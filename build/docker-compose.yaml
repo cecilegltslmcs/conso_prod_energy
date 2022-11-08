@@ -14,13 +14,19 @@ services:
     - env_postgres
     volumes:
     - pgdata:/data/db
+    network:
+    - batch_layer
   
   adminer:
     image: adminer
     restart: always
     ports:
     - "8080:8080"
+    network:
+    - batch_layer
     
 volumes:
     pgdata
+ network:
+    batch_layer
 
