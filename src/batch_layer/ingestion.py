@@ -22,6 +22,6 @@ if __name__ == "__main__":
   print("Sending data to database...")
   sending_database(dataset=consumption, name="consumption", user=user, password=password)
   sending_database(dataset=coverage_rate, name="coverage_rate", user=user, password=password)
-  sending_database(dataset=region, name="region", user, password)
+  sending_database(dataset=region, name="region", user=user, password=password)
   
   print("Data Ingestion finished!")
