@@ -63,34 +63,34 @@ def parsing_data(df):
   Three datasets with the consumption and production information, 
   coverage_rate and region.
   """
-  consumption = df[["code_insee_region", "date", "heure", "consommation",
-                  "thermique", "nucleaire", "eolien", "solaire", 
-                  "hydraulique", "pompage", "bioenergies"]]
+
   
   coverage_rate = df[["code_insee_region", "date", "heure", "tco_thermique",
                     "tch_thermique", "tco_nucleaire", "tch_nucleaire",
                     "tco_eolien", "tch_eolien", "tco_solaire", "tch_solaire",
                     "tco_hydraulique", "tch_hydraulique", "tco_bioenergies",
                     "tch_bioenergies"]]
+  coverage_rate.fillna(0, inplace=True)
   
   region = df[["code_insee_region", "libelle_region"]]
   region.drop_duplicates(inplace=True)
 
-  return consumption, coverage_rate, region
+  return coverage_rate, region
 
 def processing_data(df):
-  df = df[["code_insee_region", "date", "heure", "consommation",
-           "thermique", "nucleaire", "eolien", "solaire", 
-           "hydraulique", "pompage", "bioenergies"]]
-  df["production_total"] = df["thermique"] + df["nucleaire"] + df["eolien"] +\
-                           df["solaire"] + df["hydraulique"] + df["pompage"] +\
-                           df["bioenergies"]
+  consumption = df[["code_insee_region", "date", "heure", "consommation",
+                  "thermique", "nucleaire", "eolien", "solaire", 
+                  "hydraulique", "pompage", "bioenergies"]]
+  consumption.fillna(0, inplace=True)
+  consumption["production_total"] = consumption["thermique"] + consumption["nucleaire"] + consumption["eolien"] +\
+                           consumption["solaire"] + consumption["hydraulique"] + consumption["pompage"] +\
+                           consumption["bioenergies"]
   energy_type = ["thermique", "nucleaire", "eolien", "solaire", 
                  "hydraulique", "pompage", "bioenergies"]
   for i in energy_type:
-    df["pct_"+str(i)] = (df[i]/df["production_total"]) * 100
+    consumption["pct_"+str(i)] = (consumption[i]/consumption["production_total"]) * 100
     
-    return df
+    return consumption
   
 
 def sending_database(dataset, name, user, password):

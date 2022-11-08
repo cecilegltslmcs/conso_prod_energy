@@ -18,10 +18,10 @@ if __name__ == "__main__":
   df = opening_data(path)
 
   print("Parsing data data...")
-  consumption, coverage_rate, region = parsing_data(df)
+  coverage_rate, region = parsing_data(df)
   
   print("Processing data...")
-  consumption = processing_data(consumption)
+  consumption = processing_data(df)
   
   print("Sending data to database...")
   sending_database(dataset=consumption, name="consumption", user=user, password=password)

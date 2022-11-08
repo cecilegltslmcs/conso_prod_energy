@@ -11,6 +11,7 @@ CREATE TABLE CONSUMPTION (
   hydraulique FLOAT(10),
   pompage FLOAT(10),
   bioenergies FLOAT(10),
+  production_total FLOAT(10),
   pct_thermique FLOAT(10),
   pct_nucleaire FLOAT(10),
   pct_eolien FLOAT(10),
@@ -46,8 +47,8 @@ CREATE TABLE COVERAGE_RATE (
 CREATE TABLE REGION (
   code_insee_region VARCHAR(42),
   libelle_region VARCHAR(42),
-  PRIMARY KEY (code_insee)
+  PRIMARY KEY (code_insee_region)
 );
 
-ALTER TABLE CONSUMPTION ADD FOREIGN KEY (code_insee_1) REFERENCES REGION (code_insee);
-ALTER TABLE COVERAGE_RATE ADD FOREIGN KEY (code_insee_1) REFERENCES REGION (code_insee);
+ALTER TABLE CONSUMPTION ADD FOREIGN KEY (code_insee_1) REFERENCES REGION (code_insee_region);
+ALTER TABLE COVERAGE_RATE ADD FOREIGN KEY (code_insee_1) REFERENCES REGION (code_insee_region);
