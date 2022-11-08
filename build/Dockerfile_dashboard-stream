@@ -1,0 +1,12 @@
+FROM python:3.10
+
+EXPOSE 8501
+
+WORKDIR /home/user/dashboard
+
+COPY . .
+
+RUN apt-get update &&\
+    pip install -r requirements.txt
+
+ENTRYPOINT ["streamlit", "run", "dashboard-stream.py", "--server.port=8501", "--server.address=0.0.0.0"]
