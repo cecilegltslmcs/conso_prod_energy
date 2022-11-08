@@ -31,7 +31,6 @@ def collecting_data(url : str, path: str):
     print('Wrong URL')
   with open(path, 'w') as f:
     json.dump(data, f)
-    return "Data from the API obtained"
 
 def opening_data(path: str):
   """ Function which open the data obtained from the API.
