@@ -16,8 +16,11 @@ if __name__ == "__main__":
   print("Opening data...")
   df = opening_data(path)
 
-  print("Processing data...")
-  consumption, coverage_rate, region = cleaning_data(df)
+  print("Parsing data data...")
+  consumption, coverage_rate, region = parsing_data(df)
+  
+  print("Processing data...)
+  consumption = processing_data(consumption)
   
   print("Sending data to database...")
   sending_database(dataset=consumption, name="consumption", user=user, password=password)
