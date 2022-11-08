@@ -49,7 +49,7 @@ def opening_data(path: str):
   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
   return df
 
-def cleaning_data(df):
+def parsing_data(df):
   """This function cleans and preprocesses the data 
   coming from the given dataset. 
   Return three datasets.
@@ -66,13 +66,6 @@ def cleaning_data(df):
   consumption = df[["code_insee_region", "date", "heure", "consommation",
                   "thermique", "nucleaire", "eolien", "solaire", 
                   "hydraulique", "pompage", "bioenergies"]]
-  energy_type = ["thermique", "nucleaire", "eolien", "solaire", 
-               "hydraulique", "pompage", "bioenergies"]
-  consumption["production_total"] = df["thermique"] + df["nucleaire"] + df["eolien"] +\
-                                    df["solaire"] + df["hydraulique"] + df["pompage"] +\
-                                    df["bioenergies"]
-  for i in energy_type:
-    consumption["pct_"+str(i)] = round((consumption[i]/consumption["production_total"]) * 100, 2)
   
   coverage_rate = df[["code_insee_region", "date", "heure", "tco_thermique",
                     "tch_thermique", "tco_nucleaire", "tch_nucleaire",
@@ -84,6 +77,18 @@ def cleaning_data(df):
   region.drop_duplicates(inplace=True)
 
   return consumption, coverage_rate, region
+
+def processing_data(df):
+  energy_type = ["thermique", "nucleaire", "eolien", "solaire", 
+               "hydraulique", "pompage", "bioenergies"]
+  df["production_total"] = df["thermique"] + df["nucleaire"] + df["eolien"] +\
+                           df["solaire"] + df["hydraulique"] + df["pompage"] +\
+                           df["bioenergies"]
+  for i in energy_type:
+    df["pct_"+str(i)] = round((df[i]/df["production_total"]) * 100, 2)
+    
+    return df
+  
 
 def sending_database(dataset, name, user, password):
   """ Function which connect to the PostgreSQL database
