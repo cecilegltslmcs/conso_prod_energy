@@ -90,7 +90,7 @@ def processing_data(df):
   for i in energy_type:
     consumption["pct_"+str(i)] = (consumption[i]/consumption["production_total"]) * 100
     
-    return consumption
+  return consumption
   
 
 def sending_database(dataset, name, user, password):
