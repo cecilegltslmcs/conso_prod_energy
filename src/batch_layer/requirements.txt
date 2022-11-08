@@ -1,6 +1,7 @@
 pandas
 plotly
 psycopg2-binary
+pytest
 requests
 sqlalchemy
 streamlit
