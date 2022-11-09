@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_ingestion
-    network:
+    networks:
       - batch_layer
       
   postgres:
@@ -13,27 +13,27 @@ services:
     restart: always
     container_name: pg-database
     ports:
-    - "5432:5432"
+      - "5432:5432"
     environment: 
       - POSTGRES_DB = energy_consumption
     env_file:
-    - env_postgres
+      - .env_postgres
     volumes:
-    - pgdata:/data/db
-    network:
-    - batch_layer
+      - pgdata:/data/db
+    networks:
+      - batch_layer
     depends_on:
-    - ingestion
+      - ingestion
   
   adminer:
     image: adminer
     restart: always
     ports:
-    - "8080:8080"
-    network:
-    - batch_layer
+      - "8080:8080"
+    networks:
+      - batch_layer
     depends_on:
-    - postgres
+      - postgres
  
   streamlit-batch:
     container_name: streamlit-batch
@@ -133,13 +133,13 @@ services:
   mongo:
     container_name: mongo
     image: mongo:latest
-    restart: 'on-failure'
+    restart: always
     ports:
       - "27017:27017"
     networks:
       - streaming_layer
     environment:
-      - MONGO_INITDB_DATABASE=energy_consumption
+      - MONGO_INITDB_DATABASE = energy_consumption
     env_file:
       - .env_mongo
     volumes:
@@ -153,15 +153,15 @@ services:
       context: .
       dockerfile: Dockerfile_dashboard-stream
     ports:
-      - "8501:8501"
+      - "8502:8502"
     networks:
       - streaming_layer
     depends_on: 
       - mongo
     
 volumes:
-    pgdata
-    mongodata
-network:
-    batch_layer
-    streaming_layer
+    pgdata:
+    mongodata:
+networks:
+    batch_layer:
+    streaming_layer:
