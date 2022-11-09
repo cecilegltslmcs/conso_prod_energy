@@ -1,5 +1,5 @@
 from packages.module_ingestion import *
-from packages import authentification as auth
+from streaming_layer.packages import authentification as auth
 import warnings
 
 

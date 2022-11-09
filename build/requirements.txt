@@ -1,11 +1,12 @@
+kafka-python
 pandas
 plotly
+pymongo
 psycopg2-binary
+pyspark
 pytest
 requests
 sqlalchemy
 streamlit
 warnings
-kafka-python
-requests
-pyspark
+

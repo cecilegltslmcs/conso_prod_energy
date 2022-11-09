@@ -9,5 +9,5 @@ if __name__ == "__main__":
     while True:
         data = get_data(url)
         send_records_to_kafka(producer, topic, data)
-        print("waiting 15 minutes for next records")
-        time.sleep(900)
+        print("waiting 1 minute for next records")
+        time.sleep(60)
