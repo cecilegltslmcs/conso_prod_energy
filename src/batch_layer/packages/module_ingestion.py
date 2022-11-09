@@ -88,7 +88,7 @@ def processing_data(df):
   energy_type = ["thermique", "nucleaire", "eolien", "solaire", 
                  "hydraulique", "pompage", "bioenergies"]
   for i in energy_type:
-    consumption["pct_"+str(i)] = (consumption[i]/consumption["production_total"]) * 100
+    consumption["pct_"+str(i)] = round((consumption[i]/consumption["production_total"]) * 100, 2)
     
   return consumption
   
