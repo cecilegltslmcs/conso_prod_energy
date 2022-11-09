@@ -2,7 +2,7 @@ FROM python:3.10
 
 EXPOSE 8502
 
-WORKDIR /home/user/dashboard
+WORKDIR /home/user/src/streaming_layer
 
 COPY . .
 
