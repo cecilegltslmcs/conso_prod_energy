@@ -23,9 +23,6 @@ if __name__ == "__main__":
   print("Processing data...")
   consumption = processing_data(df)
   
-  print("Creating database...")
-  create_database(user=user, password=password)
-  
   print("Sending data to database...")
   sending_database(dataset=consumption, name="consumption", user=user, password=password)
   sending_database(dataset=coverage_rate, name="coverage_rate", user=user, password=password)
