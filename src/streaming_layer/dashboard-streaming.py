@@ -1,8 +1,5 @@
 import packages.authentification as auth
-import matplotlib.pyplot as plt
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
 from pymongo import MongoClient
 import streamlit as st
 import time
@@ -49,7 +46,6 @@ while True:
     
     with placeholder.container():
         df = pd.DataFrame(items)
-
 
         if option == "Consommation moyenne":
             counts = len(df.index)

@@ -3,11 +3,11 @@ version: '3.9'
 services:
   ingestion:
     build:
-      context: .
+      context: /src/batch_layer/
       dockerfile: Dockerfile_ingestion
     networks:
       - batch_layer
-      
+
   postgres:
     image: postgres
     restart: always
@@ -24,21 +24,11 @@ services:
       - batch_layer
     depends_on:
       - ingestion
-  
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - "8080:8080"
-    networks:
-      - batch_layer
-    depends_on:
-      - postgres
  
   streamlit-batch:
     container_name: streamlit-batch
     build:
-      context: .
+      context: /src/batch_layer/
       dockerfile: Dockerfile_dashboard-batch
     ports:
       - "8501:8501"
@@ -77,7 +67,7 @@ services:
   kafka-producer-app:
     container_name: kafka_producer_app
     build:
-      context: .
+      context: /src/streaming_layer/
       dockerfile: Dockerfile_kafka-component
     networks:
       - streaming_layer
@@ -87,7 +77,7 @@ services:
   spark:
     container_name: spark
     build:
-      context: .
+      context: /src/streaming_layer/
       dockerfile: Dockerfile_spark-component
     hostname: spark_master
     user: root
@@ -104,7 +94,7 @@ services:
 
   spark-worker:
     build:
-      context: .
+      context: /src/streaming_layer/
       dockerfile: Dockerfile_spark-component
     environment:
       - SPARK_MODE=worker
@@ -122,7 +112,7 @@ services:
 
   spark-app:
     build:
-      context: .
+      context: /src/streaming_layer/
       dockerfile: Dockerfile_spark-job
     networks:
       - streaming_layer
@@ -150,7 +140,7 @@ services:
   streamlit-stream:
     container_name: streamlit-stream
     build:
-      context: .
+      context: /src/streaming_layer/
       dockerfile: Dockerfile_dashboard-stream
     ports:
       - "8502:8502"

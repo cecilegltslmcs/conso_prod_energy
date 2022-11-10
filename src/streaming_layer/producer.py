@@ -1,7 +1,7 @@
 from packages.module_kafka import *
 
 if __name__ == "__main__":
-    ip = "localhost"
+    ip = "kafka:9092"
     url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-tr/exports/json"
     producer = get_producer(ip)
     topic = "electricity_production"

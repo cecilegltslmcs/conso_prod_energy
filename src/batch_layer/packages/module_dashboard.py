@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 import streamlit as st
 
 def init_connection(user, password):
-    return create_engine(f'postgresql://{user}:{password}@localhost:5432/energy_consumption')
+    return create_engine(f'postgresql://{user}:{password}@postgres:5432/energy_consumption')
 
 def loading_geojson(url):
     try:

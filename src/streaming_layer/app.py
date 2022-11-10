@@ -1,15 +1,15 @@
-import authentification as auth
+import packages.authentification as auth
 import pymongo
 from pyspark.sql import functions as F
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col
-from pyspark.sql.types import StringType, StructType, StructField, FloatType, IntegerType, DateType, TimestampType
+from pyspark.sql.types import StringType, StructType, StructField, FloatType, IntegerType, TimestampType
 import time
 
 
 time.sleep(10)
 
-ip_server = "localhost:9092"
+ip_server = "kafka"
 topic_name = "electricity_production"
 user = auth.mongodb_user
 password = auth.mongodb_password
@@ -47,7 +47,6 @@ if __name__ == "__main__":
         StructField("code_insee_region", StringType(), True),
         StructField("libelle_region", StringType(), True),
         StructField("nature", StringType(), True),
-        #StructField("date", DateType(), True),
         StructField("heure", TimestampType(), True),
         StructField("consommation", IntegerType(), True),
         StructField("thermique", IntegerType(), True),
@@ -114,7 +113,7 @@ if __name__ == "__main__":
         StructField("tch_bioenergies", FloatType(), True),
         ])
     
-        # read Kafka stream
+    # read Kafka stream
     df = (spark
         .readStream
         .format("kafka")

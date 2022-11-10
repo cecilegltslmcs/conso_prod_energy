@@ -114,7 +114,7 @@ def sending_database(dataset, name, user, password):
   
   """
   try:
-    engine = create_engine(f'postgresql://{user}:{password}@localhost:5432/energy_consumption')
+    engine = create_engine(f'postgresql://{user}:{password}@postgres:5432/energy_consumption')
     engine.connect()
   except:
     print("Error while connection to the database")
