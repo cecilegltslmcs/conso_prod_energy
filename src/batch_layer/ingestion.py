@@ -9,13 +9,13 @@ if __name__ == "__main__":
   user = auth.user
   password = auth.password
   url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-cons-def/exports/json"
-  path = "data/raw/data.json"
+  #path = "data/raw/data.json"
 
   print("Collecting data in progress...")
-  collecting_data(url, path)
+  collecting_data(url)
 
-  print("Opening data...")
-  df = opening_data(path)
+  # print("Opening data...")
+  # df = opening_data(path)
 
   print("Parsing data data...")
   coverage_rate, region = parsing_data(df)

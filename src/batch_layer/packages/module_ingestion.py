@@ -3,11 +3,10 @@
 organize and send data to a PostgreSQL. 
 """
 import requests
-import json
 import pandas as pd
 from sqlalchemy import create_engine
 
-def collecting_data(url : str, path: str):
+def collecting_data(url : str):
   """Function which sending requests to 
   the API Odre.
   Return is a json file storage on
@@ -29,25 +28,27 @@ def collecting_data(url : str, path: str):
     data = response.json()
   except:
     print('Wrong URL')
-  with open(path, 'w') as f:
-    json.dump(data, f)
-
-def opening_data(path: str):
-  """ Function which open the data obtained from the API.
-  Three columns are removed in order to realize a first cleaning.
-  Return is a Pandas Dataframe. 
   
-  Parameters
-  ------
-  path : str
-      Path where the data are stored. 
-  Return
-  -----
-  Pandas Dataframe with the data coming from the API
-  """
-  df = pd.read_json(path)
+  df = pd.read_json(data)
   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
   return df
+
+# def opening_data(path: str):
+#   """ Function which open the data obtained from the API.
+#   Three columns are removed in order to realize a first cleaning.
+#   Return is a Pandas Dataframe. 
+  
+#   Parameters
+#   ------
+#   path : str
+#       Path where the data are stored. 
+#   Return
+#   -----
+#   Pandas Dataframe with the data coming from the API
+#   """
+#   df = pd.read_json(path)
+#   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
+#   return df
 
 def parsing_data(df):
   """This function cleans and preprocesses the data 
