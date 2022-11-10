@@ -1,14 +1,5 @@
 version: '3.9'
 services:
-  ingestion:
-    build:
-      context: /src/batch_layer/
-      dockerfile: Dockerfile_ingestion
-    volumes:
-      - data:/data/raw/
-    networks:
-      - batch_layer
-
   postgres:
     image: postgres:14.5
     restart: always
@@ -23,11 +14,19 @@ services:
          max-file: "3"
     volumes:
       - pgdata:/data/db
-      - ./batch_layer/database/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    networks:
+      - batch_layer
+  ingestion:
+    build:
+      context: /src/batch_layer/
+      dockerfile: Dockerfile_ingestion
+    volumes:
+      - data:/data/raw/
     networks:
       - batch_layer
     depends_on:
-      - ingestion
+      - postgres
  
   streamlit-batch:
     container_name: streamlit-batch
