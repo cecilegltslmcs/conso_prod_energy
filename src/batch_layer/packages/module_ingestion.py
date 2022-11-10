@@ -29,7 +29,6 @@ def collecting_data(url : str):
     print('Wrong URL')
   
   df = pd.DataFrame(response.json())
-  
   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
   return df
 
