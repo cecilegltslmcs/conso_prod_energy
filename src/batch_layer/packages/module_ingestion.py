@@ -29,7 +29,9 @@ def collecting_data(url : str):
   except:
     print('Wrong URL')
   
-  df = pd.read_json(data)
+  df_iter = pd.read_json(data, iterator = True, chunksize=1000)
+  df = next(df_iter)
+  
   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
   return df
 
@@ -118,6 +120,8 @@ def sending_database(dataset, name, user, password):
     engine.connect()
   except:
     print("Error while connection to the database")
-  dataset.to_sql(name=name, con=engine, index=False, if_exists="replace")
+  
+  dataset.head(n=0).to_sql(name=name, con=engine, if_exists="replace")
+  dataset.to_sql(name=name, con=engine, if_exists="append")
   
   return "Transfert(s) finished!"
