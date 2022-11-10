@@ -25,12 +25,10 @@ def collecting_data(url : str):
   """
   try:
     response = requests.get(url)
-    data = response.json()
   except:
     print('Wrong URL')
   
-  df_iter = pd.read_json(data, iterator = True, chunksize=1000)
-  df = next(df_iter)
+  df = pd.DataFrame(response.json())
   
   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
   return df
