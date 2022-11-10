@@ -5,6 +5,8 @@ services:
     build:
       context: /src/batch_layer/
       dockerfile: Dockerfile_ingestion
+    volumes:
+      - data:/data/raw/
     networks:
       - batch_layer
 
@@ -34,7 +36,8 @@ services:
       - "8501:8501"
     networks:
       - batch_layer
-    depends_on: 
+    depends_on:
+      - ingestion
       - postgres
  
   zookeeper:
@@ -150,6 +153,7 @@ services:
       - mongo
     
 volumes:
+    data:
     pgdata:
     mongodata:
 networks:

@@ -9,4 +9,4 @@ COPY . .
 RUN apt-get update &&\
     pip install -r requirements.txt
 
-ENTRYPOINT ["streamlit", "run", "dashboard-stream.py", "--server.port=8502", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "dashboard-streaming.py", "--server.port=8502", "--server.address=0.0.0.0"]

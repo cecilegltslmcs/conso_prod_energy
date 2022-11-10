@@ -7,11 +7,10 @@ def get_data(url):
     data = resp.json()
     return data
 
-def get_producer(ip, port=9092):
-    broker = f"{ip}:{port}"
-    print("connecting to", broker)
+def get_producer(ip_server):
+    print("connecting to", ip_server)
     producer = KafkaProducer(
-                bootstrap_servers = [broker],
+                bootstrap_servers = ip_server,
                 value_serializer = lambda x: json.dumps(x).encode('utf-8'))
     return producer
 
