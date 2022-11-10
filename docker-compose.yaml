@@ -15,15 +15,15 @@ services:
     container_name: pg-database
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_USER = postgres
-      - POSTGRES_PASSWORD = password42!
+    env_file:
+      - .env_postgresql
     logging:
       options:
          max-size: 10m
          max-file: "3"
     volumes:
       - pgdata:/data/db
+      - ./batch_layer/database/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
     networks:
       - batch_layer
     depends_on:

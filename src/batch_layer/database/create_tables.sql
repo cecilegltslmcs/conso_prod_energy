@@ -1,4 +1,6 @@
-CREATE TABLE CONSUMPTION (
+CREATE DATABASE IF NOT EXISTS energy_consumption
+
+CREATE TABLE IF NOT EXISTS CONSUMPTION (
   id_consommation VARCHAR(42),
   code_insee_region VARCHAR(42),
   date_enreg DATE NOT NULL,
@@ -23,7 +25,7 @@ CREATE TABLE CONSUMPTION (
   PRIMARY KEY (id_consommation)
 );
 
-CREATE TABLE COVERAGE_RATE (
+CREATE TABLE IF NOT EXISTS COVERAGE_RATE (
   id_couverture VARCHAR(42),
   code_insee_region VARCHAR(42),
   date_enreg DATE NOT NULL,
@@ -44,7 +46,7 @@ CREATE TABLE COVERAGE_RATE (
   PRIMARY KEY (id_couverture)
 );
 
-CREATE TABLE REGION (
+CREATE TABLE IF NOT EXISTS REGION (
   code_insee_region VARCHAR(42),
   libelle_region VARCHAR(42),
   PRIMARY KEY (code_insee_region)
