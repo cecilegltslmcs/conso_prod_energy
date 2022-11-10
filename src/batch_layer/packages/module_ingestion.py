@@ -92,19 +92,6 @@ def processing_data(df):
     
   return consumption
 
-def create_database(user, password):
-  try:
-    engine = create_engine(f'postgresql://{user}:{password}@postgres:5432/')
-    engine.connect()
-  except:
-    print("Error while connection to the database")
-    
-  cursor = engine.cursor()
-  sql = '''CREATE database energy_consumption;'''
-  cursor.execute(sql)
-  return "Database created successfully"
-  
-
 def sending_database(dataset, name, user, password):
   """ Function which connect to the PostgreSQL database
   and send the cleaned-processed data for storage.
