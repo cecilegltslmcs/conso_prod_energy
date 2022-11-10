@@ -8,5 +8,4 @@ pytest
 requests
 sqlalchemy
 streamlit
-warnings
 
