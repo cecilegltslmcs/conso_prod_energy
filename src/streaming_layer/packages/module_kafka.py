@@ -11,7 +11,8 @@ def get_producer(ip_server):
     print("connecting to", ip_server)
     producer = KafkaProducer(
                 bootstrap_servers = ip_server,
-                value_serializer = lambda x: json.dumps(x).encode('utf-8'))
+                value_serializer = lambda x: json.dumps(x).encode('utf-8'),
+                api_version = (0,10,2))
     return producer
 
 def send_records_to_kafka(producer, topic, records):

@@ -9,7 +9,7 @@ import time
 
 time.sleep(10)
 
-ip_server = "kafka"
+ip_server = "kafka:9092"
 topic_name = "electricity_production"
 user = auth.mongodb_user
 password = auth.mongodb_password
