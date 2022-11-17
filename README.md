@@ -57,6 +57,7 @@ On the other side, the streaming layer is here to give information in real time 
 ## Status
 
 - v1 : Streaming Layer : OK
+
        Correction Batch Layer : WIP
 
 ## Credits
