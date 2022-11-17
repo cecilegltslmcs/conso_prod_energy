@@ -21,9 +21,6 @@ On the other side, the streaming layer is here to give information in real time 
 └── Energy_consumption/
     ├── .gitignore
     ├── README.md
-    ├── build/
-    │   └── docker-compose.yml
-    ├── images
     └── app/
         ├── batch_layer/
         │   ├── database --> Script_database.sql
@@ -51,6 +48,10 @@ On the other side, the streaming layer is here to give information in real time 
             ├── CHANGELOG.txt
             ├── README.md
             └── requirements.txt
+    ├── images
+    ├── sql
+    ├── docker-compose.yaml
+    ├── requirements.txt
 ```
 
 ## Status

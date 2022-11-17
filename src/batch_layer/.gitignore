@@ -1,6 +1,0 @@
-authentification.py
-data/
-package/__pycache__
-__pycache__
-.env_postgres
-tests/.pytest_cache

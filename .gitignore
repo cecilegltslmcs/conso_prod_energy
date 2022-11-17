@@ -1,4 +1,5 @@
 env
-build/.env_postgresql
-build/.env_mongo
+.env_postgresql
+.env_mongo
 dashboard-streaming.png
+

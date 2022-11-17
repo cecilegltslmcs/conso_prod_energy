@@ -1,0 +1,5 @@
+user = "postgres"
+password = "password42!"
+mongodb_user = "admin"
+mongodb_password = "monmotdepasse42!"
+mongodb_uri = "mongodb://admin:monmotdepasse42!@mongo:27017"

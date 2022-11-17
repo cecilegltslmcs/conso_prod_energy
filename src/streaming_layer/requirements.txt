@@ -1,6 +1,0 @@
-kafka-python
-requests
-plotly
-pyspark
-pymongo
-streamlit
