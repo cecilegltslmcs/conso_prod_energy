@@ -4,7 +4,10 @@ organize and send data to a PostgreSQL.
 """
 import requests
 import pandas as pd
+import psycopg2
 from sqlalchemy import create_engine
+import sys
+
 
 def collecting_data(url : str):
   """Function which sending requests to 
@@ -63,8 +66,6 @@ def parsing_data(df):
   Three datasets with the consumption and production information, 
   coverage_rate and region.
   """
-
-  
   coverage_rate = df[["code_insee_region", "date", "heure", "tco_thermique",
                     "tch_thermique", "tco_nucleaire", "tch_nucleaire",
                     "tco_eolien", "tch_eolien", "tco_solaire", "tch_solaire",
@@ -92,7 +93,7 @@ def processing_data(df):
     
   return consumption
 
-def sending_database(dataset, name, user, password):
+def connection_to_database(db_user, db_password):
   """ Function which connect to the PostgreSQL database
   and send the cleaned-processed data for storage.
   
@@ -112,13 +113,23 @@ def sending_database(dataset, name, user, password):
   A message to validate the success of the transfert. 
   
   """
+  connection = None
   try:
-    engine = create_engine(f'postgresql://{user}:{password}@postgres:5432/energy_consumption')
-    engine.connect()
-  except:
-    print("Error while connection to the database")
-  
-  dataset.head(n=0).to_sql(name=name, con=engine, if_exists="replace")
-  dataset.to_sql(name=name, con=engine, if_exists="append")
-  
-  return "Transfert(s) finished!"
+    print("Connecting to the PostgreSQL database server")
+    connection = psycopg2.connect(user = db_user,
+                                  password = db_password,
+                                  localhost = "postgres",
+                                  port="5432",
+                                  database="energy_consumption")
+  except (Exception, psycopg2.DatabaseError) as error:
+    print(error)
+    sys.exit(1)
+    
+  print("Connection successful")
+  return connection
+
+def sending_database(dataset, name, connect):
+  engine = create_engine(connect)
+  dataset.head(n=0).to_sql(name, con=engine, if_exists="replace")
+  dataset.to_sql(name, con=engine, index=False, if_exists="append")
+  print("Transfert realised!")

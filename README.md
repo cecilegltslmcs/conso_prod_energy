@@ -24,7 +24,7 @@ On the other side, the streaming layer is here to give information in real time 
     ├── build/
     │   └── docker-compose.yml
     ├── images
-    └── src/
+    └── app/
         ├── batch_layer/
         │   ├── database --> Script_database.sql
         │   ├── images

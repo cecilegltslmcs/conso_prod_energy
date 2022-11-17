@@ -12,7 +12,7 @@ if __name__ == "__main__":
   #path = "data/raw/data.json"
 
   print("Collecting data in progress...")
-  collecting_data(url)
+  df = collecting_data(url)
 
   # print("Opening data...")
   # df = opening_data(path)
@@ -23,9 +23,11 @@ if __name__ == "__main__":
   print("Processing data...")
   consumption = processing_data(df)
   
+  conn = connection_to_database(db_user=user, db_password=password)
+  
   print("Sending data to database...")
-  sending_database(dataset=consumption, name="consumption", user=user, password=password)
-  sending_database(dataset=coverage_rate, name="coverage_rate", user=user, password=password)
-  sending_database(dataset=region, name="region", user=user, password=password)
+  sending_database(dataset=consumption, name="consumption", connect=conn)
+  sending_database(dataset=coverage_rate, name="coverage_rate", connect=conn)
+  sending_database(dataset=region, name="region", connect=conn)
   
   print("Data Ingestion finished!")
