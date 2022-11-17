@@ -19,7 +19,7 @@ services:
       - batch_layer
   ingestion:
     build:
-      context: /src/batch_layer/
+      context: /app/batch_layer/
       dockerfile: Dockerfile_ingestion
     volumes:
       - data:/data/raw/
@@ -31,7 +31,7 @@ services:
   streamlit-batch:
     container_name: streamlit-batch
     build:
-      context: /src/batch_layer/
+      context: /app/batch_layer/
       dockerfile: Dockerfile_dashboard-batch
     ports:
       - "8501:8501"
@@ -71,7 +71,7 @@ services:
   kafka-producer-app:
     container_name: kafka_producer_app
     build:
-      context: /src/streaming_layer/
+      context: /app/streaming_layer/
       dockerfile: Dockerfile_kafka-component
     networks:
       - streaming_layer
@@ -80,7 +80,7 @@ services:
   spark:
     container_name: spark
     build:
-      context: /src/streaming_layer/
+      context: /app/streaming_layer/
       dockerfile: Dockerfile_spark-component
     hostname: spark_master
     user: root
@@ -97,7 +97,7 @@ services:
 
   spark-worker:
     build:
-      context: /src/streaming_layer/
+      context: /app/streaming_layer/
       dockerfile: Dockerfile_spark-component
     environment:
       - SPARK_MODE=worker
@@ -115,7 +115,7 @@ services:
 
   spark-app:
     build:
-      context: /src/streaming_layer/
+      context: /app/streaming_layer/
       dockerfile: Dockerfile_spark-job
     networks:
       - streaming_layer
@@ -143,7 +143,7 @@ services:
   streamlit-stream:
     container_name: streamlit-stream
     build:
-      context: /src/streaming_layer/
+      context: /app/streaming_layer/
       dockerfile: Dockerfile_dashboard-stream
     ports:
       - "8502:8502"
