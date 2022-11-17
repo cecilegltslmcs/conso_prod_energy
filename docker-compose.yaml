@@ -1,9 +1,9 @@
 version: '3.9'
 services:
-  postgres:
+  database:
     image: postgres:14.5
     restart: always
-    container_name: pg-database
+    container_name: database
     ports:
       - "5432:5432"
     env_file:
@@ -17,7 +17,19 @@ services:
       - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
     networks:
       - batch_layer
+    
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    env_file:
+      - .env_postgresql
+    ports:
+      - "8080:80"
+    networks:
+      - batch_layer
+    
   ingestion:
+    container_name: ingestion-script
     build:
       context: /app/batch_layer/
       dockerfile: Dockerfile_ingestion
@@ -26,8 +38,7 @@ services:
     networks:
       - batch_layer
     depends_on:
-      - postgres
- 
+      - database 
   streamlit-batch:
     container_name: streamlit-batch
     build:
@@ -39,7 +50,7 @@ services:
       - batch_layer
     depends_on:
       - ingestion
-      - postgres
+      - database
  
   zookeeper:
     image: 'bitnami/zookeeper:latest'

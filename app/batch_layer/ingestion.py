@@ -33,8 +33,17 @@ if __name__ == "__main__":
                                 database=database)
   
   print("Sending data to database...")
-  sending_database(dataset=consumption, name="consumption", connect=conn)
-  sending_database(dataset=coverage_rate, name="coverage_rate", connect=conn)
-  sending_database(dataset=region, name="region", connect=conn)
+  sending_database(db_user=user, db_password=password, 
+                   localhost=host, port=port, 
+                   database=database, dataset="consumption.csv", 
+                   name="consumption")
+  sending_database(db_user=user, db_password=password, 
+                   localhost=host, port=port, 
+                   database=database, dataset="coverage_rate.csv", 
+                   name="coverage_rate")
+  sending_database(db_user=user, db_password=password, 
+                   localhost=host, port=port, 
+                   database=database, dataset="region.csv", 
+                   name="region")
   
   print("Data Ingestion finished!")
