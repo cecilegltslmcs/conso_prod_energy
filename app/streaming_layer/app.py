@@ -13,7 +13,9 @@ ip_server = "kafka:9092"
 topic_name = "electricity_production"
 user = auth.mongodb_user
 password = auth.mongodb_password
-uri = f"mongodb://{user}:{password}@mongo:27017"
+host = auth.mongodb_host
+port = auth.mongodb_port
+uri = f"mongodb://{user}:{password}@{host}:{port}"
 
 class WriteRowMongo:
     def open(self, partition_id, epoch_id):

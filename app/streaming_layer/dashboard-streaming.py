@@ -4,9 +4,15 @@ from pymongo import MongoClient
 import streamlit as st
 import time
 
+user = auth.mongodb_user
+password = auth.mongodb_password
+host = auth.mongodb_host
+port = auth.mongodb_port
+uri = f"mongodb://{user}:{password}@{host}:{port}"
+
 @st.experimental_singleton
 def init_connection():
-    return MongoClient(auth.mongodb_uri)
+    return MongoClient(uri)
 
 try:
     client = init_connection()

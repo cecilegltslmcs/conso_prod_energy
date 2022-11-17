@@ -8,6 +8,9 @@ if __name__ == "__main__":
   warnings.simplefilter("ignore")
   user = auth.user
   password = auth.password
+  host = auth.host
+  port = auth.port
+  database = auth.database
   url = "https://odre.opendatasoft.com/api/v2/catalog/datasets/eco2mix-regional-cons-def/exports/json"
   #path = "data/raw/data.json"
 
@@ -23,7 +26,11 @@ if __name__ == "__main__":
   print("Processing data...")
   consumption = processing_data(df)
   
-  conn = connection_to_database(db_user=user, db_password=password)
+  conn = connection_to_database(db_user=user, 
+                                db_password=password, 
+                                localhost=host, 
+                                port=port, 
+                                database=database)
   
   print("Sending data to database...")
   sending_database(dataset=consumption, name="consumption", connect=conn)

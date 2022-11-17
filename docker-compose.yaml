@@ -77,7 +77,6 @@ services:
       - streaming_layer
     depends_on:
       - kafka
-
   spark:
     container_name: spark
     build:

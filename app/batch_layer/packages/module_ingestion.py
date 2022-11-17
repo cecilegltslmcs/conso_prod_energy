@@ -93,7 +93,7 @@ def processing_data(df):
     
   return consumption
 
-def connection_to_database(db_user, db_password):
+def connection_to_database(db_user, db_password, localhost, port, database):
   """ Function which connect to the PostgreSQL database
   and send the cleaned-processed data for storage.
   
@@ -113,23 +113,12 @@ def connection_to_database(db_user, db_password):
   A message to validate the success of the transfert. 
   
   """
-  connection = None
-  try:
-    print("Connecting to the PostgreSQL database server")
-    connection = psycopg2.connect(user = db_user,
-                                  password = db_password,
-                                  localhost = "postgres",
-                                  port="5432",
-                                  database="energy_consumption")
-  except (Exception, psycopg2.DatabaseError) as error:
-    print(error)
-    sys.exit(1)
-    
+  print("Connecting to the PostgreSQL database server")
+  engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{localhost}:{port}/{database}')
   print("Connection successful")
-  return connection
+  return engine
 
 def sending_database(dataset, name, connect):
-  engine = create_engine(connect)
-  dataset.head(n=0).to_sql(name, con=engine, if_exists="replace")
-  dataset.to_sql(name, con=engine, index=False, if_exists="append")
+  dataset.head(n=0).to_sql(name, con=connect, if_exists="replace")
+  dataset.to_sql(name, con=connect, index=False, if_exists="append")
   print("Transfert realised!")
