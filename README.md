@@ -19,8 +19,6 @@ On the other side, the streaming layer is here to give information in real time 
 
 ```.
 └── Energy_consumption/
-    ├── .gitignore
-    ├── README.md
     └── app/
         ├── batch_layer/
         │   ├── database --> Script_database.sql
@@ -48,6 +46,8 @@ On the other side, the streaming layer is here to give information in real time 
             ├── CHANGELOG.txt
             ├── README.md
             └── requirements.txt
+    ├── .gitignore
+    ├── README.md
     ├── images
     ├── sql
     ├── docker-compose.yaml
@@ -56,7 +56,8 @@ On the other side, the streaming layer is here to give information in real time 
 
 ## Status
 
-- v1 : Work in Progress
+- v1 : Streaming Layer : OK
+       Correction Batch Layer : WIP
 
 ## Credits
 
