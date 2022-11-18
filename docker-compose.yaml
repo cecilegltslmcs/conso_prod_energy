@@ -8,13 +8,9 @@ services:
       - "5432:5432"
     env_file:
       - .env_postgresql
-    logging:
-      options:
-         max-size: 10m
-         max-file: "3"
     volumes:
-      - pgdata:/data/db
-      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - "eco2mix_postgres_data:/var/lib/postgresql/data:rw"
+      - "./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql"
     networks:
       - batch_layer
     
@@ -34,7 +30,7 @@ services:
       context: /app/batch_layer/
       dockerfile: Dockerfile_ingestion
     volumes:
-      - data:/data/raw/
+      - "data:/data/raw/"
     networks:
       - batch_layer
     depends_on:
@@ -165,7 +161,7 @@ services:
     
 volumes:
     data:
-    pgdata:
+    eco2mix_postgres_data:
     mongodata:
 networks:
     batch_layer:

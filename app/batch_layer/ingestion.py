@@ -20,26 +20,32 @@ if __name__ == "__main__":
   # print("Opening data...")
   # df = opening_data(path)
 
-  print("Parsing data data...")
+  print("Parsing data...")
   coverage_rate, region = parsing_data(df)
   
   print("Processing data...")
   consumption = processing_data(df)
   
-  conn = connection_to_database(db_user=user, 
-                                db_password=password, 
-                                localhost=host, 
-                                port=port, 
-                                database=database)
-  
   print("Sending data to database...")
-  sending_database(engine = conn, 
+  sending_database(db_user=user, 
+                  db_password=password, 
+                  localhost=host, 
+                  port=port, 
+                  database=database,
                    dataset=consumption, 
                    name="consumption")
-  sending_database(engine = conn,
+  sending_database(db_user=user, 
+                   db_password=password, 
+                   localhost=host, 
+                   port=port, 
+                   database=database,
                    dataset=coverage_rate, 
                    name="coverage_rate")
-  sending_database(engine = conn,  
+  sending_database(db_user=user, 
+                   db_password=password, 
+                   localhost=host, 
+                   port=port, 
+                   database=database,  
                    dataset=region, 
                    name="region")
   

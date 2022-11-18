@@ -65,7 +65,7 @@ if option == "Pourcentage pour chaque type de production":
 
 
 if option == "Production moyenne - Thermique":
-    st.header("Informations concernant la production d'énergie d'origine hhermique")
+    st.header("Informations concernant la production d'énergie d'origine thermique")
     avg_thermique = query_mean("thermique", conn)
     fig = choropleth_map(avg_thermique, region_geojson)
     st.write(fig)

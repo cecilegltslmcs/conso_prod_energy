@@ -5,20 +5,17 @@ organize and send data to a PostgreSQL.
 import requests
 import pandas as pd
 from sqlalchemy import create_engine
+import json
 
 
 def collecting_data(url : str):
   response = requests.get(url)
-  # try:
-  #   response = requests.get(url)
-  # except:
-  #   print('Wrong URL')
-  
-  df = pd.DataFrame(response.json())
+  data = response.json()
+  df = pd.read_json(data)
   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
   
   return df
-
+  
 # def opening_data(path: str):
 #   """ Function which open the data obtained from the API.
 #   Three columns are removed in order to realize a first cleaning.
@@ -60,18 +57,16 @@ def processing_data(df):
   energy_type = ["thermique", "nucleaire", "eolien", "solaire", 
                  "hydraulique", "pompage", "bioenergies"]
   for i in energy_type:
-    consumption["pct_"+str(i)] = round((consumption[i]/consumption["production_total"]) * 100, 2)
+    consumption["pct_" + str(i)] = round((consumption[i]/consumption["production_total"]) * 100, 2)
     
   return consumption
 
-def connection_to_database(db_user, db_password, localhost, port, database):
-  print("Connecting to the PostgreSQL database server")
+def sending_database(db_user, db_password, localhost, port, database, dataset, table_name):
   conn_string = f'postgresql+psycopg2://{db_user}:{db_password}@{localhost}:{port}/{database}'
   engine = create_engine(conn_string)
-  print("Connection successful")
-  return engine
-
-def sending_database(engine, dataset, name):
-  dataset.head(n=0).to_sql(name, engine, if_exists="replace")
-  dataset.to_sql(name, conn_string, if_exists="append")
+  engine.connect()
+  
+  dataset.head(n=0).to_sql(name=table_name, con=engine, if_exists="replace")
+  dataset.to_sql(name=table_name, con=engine, if_exists="append")
+  
   return f"{dataset} insert  in database"

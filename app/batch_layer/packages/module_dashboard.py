@@ -37,7 +37,7 @@ def query_pct(conn):
     return dataset
 
 def query_time(feature, conn):
-    sql_query = f'SELECT EXTRACT(YEAR FROM date) AS year, libelle_region, AVG({feature})\
+    sql_query = f'SELECT EXTRACT(YEAR FROM date_enreg) AS year, libelle_region, AVG({feature})\
                 FROM consumption\
                 INNER JOIN region ON consumption.code_insee_region = region.code_insee_region\
                 GROUP BY year, libelle_region;'
@@ -48,7 +48,7 @@ def query_time(feature, conn):
     return dataset
 
 def query_time_conso(feature, conn):
-    sql_query = f'SELECT EXTRACT(YEAR FROM date) AS year, libelle_region, AVG({feature})\
+    sql_query = f'SELECT EXTRACT(YEAR FROM date_enreg) AS year, libelle_region, AVG({feature})\
                 FROM consumption\
                 INNER JOIN region ON consumption.code_insee_region = region.code_insee_region\
                 GROUP BY year, libelle_region;'
