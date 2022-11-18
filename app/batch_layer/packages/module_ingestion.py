@@ -4,35 +4,19 @@ organize and send data to a PostgreSQL.
 """
 import requests
 import pandas as pd
-import psycopg2
 from sqlalchemy import create_engine
-import sys
 
 
 def collecting_data(url : str):
-  """Function which sending requests to 
-  the API Odre.
-  Return is a json file storage on
-  the hard disk.
-  
-  Parameters
-  ------
-  url : str
-       A string corresponding to the url of the API to requests.
-  
-  Returns
-  ------
-  json
-      Json File with the information coming from the API.
-  
-  """
-  try:
-    response = requests.get(url)
-  except:
-    print('Wrong URL')
+  response = requests.get(url)
+  # try:
+  #   response = requests.get(url)
+  # except:
+  #   print('Wrong URL')
   
   df = pd.DataFrame(response.json())
   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
+  
   return df
 
 # def opening_data(path: str):
@@ -53,19 +37,6 @@ def collecting_data(url : str):
 #   return df
 
 def parsing_data(df):
-  """This function cleans and preprocesses the data 
-  coming from the given dataset. 
-  Return three datasets.
-  
-  Parameters
-  ------
-  df : dataframe
-      Dataframe which need to be cleaned and preprocessed.
-  Return
-  -----
-  Three datasets with the consumption and production information, 
-  coverage_rate and region.
-  """
   coverage_rate = df[["code_insee_region", "date", "heure", "tco_thermique",
                     "tch_thermique", "tco_nucleaire", "tch_nucleaire",
                     "tco_eolien", "tch_eolien", "tco_solaire", "tch_solaire",
@@ -100,16 +71,7 @@ def connection_to_database(db_user, db_password, localhost, port, database):
   print("Connection successful")
   return engine
 
-def sending_database(db_user, db_password, localhost, port, database, dataset, name):
-  conn_string = f'postgresql+psycopg2://{db_user}:{db_password}@{localhost}:{port}/{database}'
-  pg_conn=psycopg2.connect(conn_string)
-  cur = pg_conn.cursor()
-  sql = f"""COPY {name}
-  FROM {dataset}
-  DELIMITER ',' CSV;
-  """
-  dataset.to_csv(dataset)
-  cur.execute(sql)
-  pg_conn.commit()
-  cur.close()
-  
+def sending_database(engine, dataset, name):
+  dataset.head(n=0).to_sql(name, engine, if_exists="replace")
+  dataset.to_sql(name, conn_string, if_exists="append")
+  return f"{dataset} insert  in database"
