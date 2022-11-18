@@ -4,6 +4,7 @@ WORKDIR /home/user/src/batch_layer
 
 COPY . .
 
-RUN pip install -r requirements.txt
+RUN apt-get update &&\
+    pip install -r requirements.txt
 
 ENTRYPOINT ["python3", "ingestion.py"]

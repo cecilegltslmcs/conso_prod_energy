@@ -2,7 +2,6 @@ import pandas as pd
 import plotly.express as px
 import requests
 from sqlalchemy import create_engine
-import streamlit as st
 
 def init_connection(user, password):
     return create_engine(f'postgresql://{user}:{password}@database:5432/energy_consumption')
