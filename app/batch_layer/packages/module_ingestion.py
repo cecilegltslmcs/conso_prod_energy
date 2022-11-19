@@ -5,11 +5,18 @@ organize and send data to a PostgreSQL.
 import requests
 import pandas as pd
 from sqlalchemy import create_engine
+import json
 
 def collecting_data(url : str):
-  response = requests.get(url)
-  data = response.json()
-  df = pd.read_json(data)
+  try:
+    response = requests.get(url)
+    data = response.json()
+  except:
+    print('Wrong URL')
+  with open("tmp/raw/data.json", 'w') as f:
+    json.dump(data, f)
+
+  df = pd.read_json("tmp/raw/data.json")
   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
   
   return df
@@ -45,7 +52,8 @@ def processing_data(df):
 def sending_database(db_user, db_password, dataset, table_name):
   engine = create_engine(f'postgresql://{db_user}:{db_password}@database:5432/energy_consumption')
   engine.connect()
-
+  
+  dataset.head(n=0).to_sql(name=table_name, con=engine, if_exists="replace")
   dataset.to_sql(name=table_name, con=engine, if_exists="append")
   
-  return f"{dataset} insert  in database"
+  return f"{dataset} insert in database"

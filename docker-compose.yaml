@@ -29,10 +29,10 @@ services:
     build:
       context: /app/batch_layer/
       dockerfile: Dockerfile_ingestion
-    volumes:
-      - "data:/data/raw/"
     networks:
       - batch_layer
+    volumes:
+      - "tmp_folder:tmp/raw/data:rw"
     depends_on:
       - database 
   streamlit-batch:
@@ -160,9 +160,9 @@ services:
       - mongo
     
 volumes:
-    data:
     eco2mix_postgres_data:
     mongodata:
+    tmp_folder:
 networks:
     batch_layer:
     streaming_layer:

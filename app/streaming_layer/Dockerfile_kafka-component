@@ -1,6 +1,6 @@
 FROM python:3.10
 
-WORKDIR /home/user/src/streaming_layer/
+WORKDIR /home/user/app/streaming_layer/
 
 COPY . .
 
