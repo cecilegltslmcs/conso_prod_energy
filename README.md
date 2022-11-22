@@ -1,5 +1,9 @@
 # Energy production and consumption in France, region by region, from 2012 to 2022
 
+*Update: 23/11/2022*
+
+This project represents a kappa architecture, which collects, stores and displays data about about energy production and consumption in France. 
+
 ## Table of contents
 * [General info](#general-info)
 * [Folder organisation](#folder-organisation)
@@ -39,6 +43,7 @@ This project is created with:
 
 - [Apache Kafka](https://kafka.apache.org/documentation/)
 - [Apache Spark](https://spark.apache.org/)
+- [API ODRé](https://odre.opendatasoft.com/api/v2/console)
 - [Docker](https://www.docker.com/)
 - [MongoDB](https://www.mongodb.com/)
 - [Streamlit](https://streamlit.io/)
