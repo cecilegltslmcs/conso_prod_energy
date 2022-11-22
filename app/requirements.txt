@@ -1,6 +1,5 @@
 kafka-python
-requests
 plotly
-pyspark
 pymongo
+pyspark
 streamlit

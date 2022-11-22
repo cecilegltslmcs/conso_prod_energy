@@ -6,7 +6,6 @@ from pyspark.sql.functions import from_json, col
 from pyspark.sql.types import StringType, StructType, StructField, FloatType, IntegerType, TimestampType
 import time
 
-
 time.sleep(10)
 
 ip_server = "kafka:9092"

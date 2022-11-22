@@ -1,41 +1,5 @@
 version: '3.9'
 services:
-  database:
-    image: postgres:14.5
-    restart: always
-    container_name: database
-    ports:
-      - "5432:5432"
-    env_file:
-      - .env_postgresql
-    volumes:
-      - "eco2mix_postgres_data:/var/lib/postgresql/data:rw"
-      - "./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql"
-    networks:
-      - batch_layer
-    
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    env_file:
-      - .env_postgresql
-    ports:
-      - "8080:80"
-    networks:
-      - batch_layer
-
-  streamlit-batch:
-    container_name: streamlit-batch
-    build:
-      context: /app/batch_layer/
-      dockerfile: Dockerfile_dashboard-batch
-    ports:
-      - "8501:8501"
-    networks:
-      - batch_layer
-    depends_on:
-      - database
- 
   zookeeper:
     image: 'bitnami/zookeeper:latest'
     container_name: zookeeper
@@ -66,7 +30,7 @@ services:
   kafka-producer-app:
     container_name: kafka_producer_app
     build:
-      context: /app/streaming_layer/
+      context: ./app/
       dockerfile: Dockerfile_kafka-component
     networks:
       - streaming_layer
@@ -75,7 +39,7 @@ services:
   spark:
     container_name: spark
     build:
-      context: /app/streaming_layer/
+      context: ./app/
       dockerfile: Dockerfile_spark-component
     hostname: spark_master
     user: root
@@ -92,7 +56,7 @@ services:
 
   spark-worker:
     build:
-      context: /app/streaming_layer/
+      context: ./app/
       dockerfile: Dockerfile_spark-component
     environment:
       - SPARK_MODE=worker
@@ -110,14 +74,13 @@ services:
 
   spark-app:
     build:
-      context: /app/streaming_layer/
+      context: ./app/
       dockerfile: Dockerfile_spark-job
     networks:
       - streaming_layer
     depends_on:
       - kafka
       - spark
-
   mongo:
     container_name: mongo
     image: mongo:latest
@@ -136,21 +99,18 @@ services:
       - spark-app
 
   streamlit-stream:
-    container_name: streamlit-stream
+    container_name: streamlit
     build:
-      context: /app/streaming_layer/
-      dockerfile: Dockerfile_dashboard-stream
+      context: ./app/
+      dockerfile: Dockerfile_dashboard
     ports:
-      - "8502:8502"
+      - "8501:8501"
     networks:
       - streaming_layer
     depends_on: 
       - mongo
-    
+
 volumes:
-    data:
-    eco2mix_postgres_data:
     mongodata:
 networks:
-    batch_layer:
     streaming_layer:

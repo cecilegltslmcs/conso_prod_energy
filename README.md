@@ -1,65 +1,61 @@
-# Energy consumption in France from 2012 to 2022
+# Energy production and consumption in France, region by region, from 2012 to 2022
 
 ## Table of contents
 * [General info](#general-info)
 * [Folder organisation](#folder-organisation)
+* [Technologies](#technologies)
+* [Setup](#setup)
 * [Status](#status)
 * [Credits](#credits)
 
 ## General Info
 
-This architecture is based on a lambda Big Data architecture. It includes two branches: one for the batch processing using a SQL database and one for the streming processing involving a NoSQL solution. 
-
-![ALT](images/Global_Architecture.drawio.png)
-
-The aim of the batch layer is to keep the data in a durable way. The database built for this part of the project will be used for creating dashboard helping to understand the energy consumption and to create machine learning models based on the historical data.
-On the other side, the streaming layer is here to give information in real time about what happens concerning the energy consumption. This part needs the help of different technologies such as MongoDB (NoSQL dabatase), Kafka and Spark Streaming to do its job.
+From the API of the Open Data Réseaux Electrique (ODRé), data are collected with a kafka broker. These data are processing by a Spark job. Then, the data are storaged in a MongoDB database. Finally, a dashboard allows to visualise the data inside the database.
+All the microservices are containerized in Docker container.
 
 ## Folder organisation
 
-```.
+```
 └── Energy_consumption/
     └── app/
-        ├── batch_layer/
-        │   ├── database --> Script_database.sql
-        │   ├── images
-        │   ├── packages/
-        │   │   ├── module_ingestion.py
-        │   │   └── module_dashboard.py
-        │   ├── tests/
-        │   │   ├── test_module_ingestion.py
-        │   │   └── test_module_dashboard.py
-        │   ├── .gitignore
-        │   ├── CHANGELOG.txt
-        |   ├── ingestion.py
-        │   ├── dashboard.py
-        │   ├── README.md
-        │   └── requirements.txt
-        └── streaming_layer/
-            ├── packages/
-            │   └── module_kafka.py
-            ├── tests/
-            │   └── test_module_kakfa.py
-            ├── .gitignore
-            ├── app.py
-            ├── producer.py
-            ├── CHANGELOG.txt
-            ├── README.md
-            └── requirements.txt
+        ├── images/
+        ├── packages/
+        │   └── module_kafka.py
+        ├── app.py
+        ├── dashboard.py
+        ├── producer.py
+        ├── Dockerfile_dashboard
+        ├── Dockerfile_kafka-component
+        ├── Dockerfile_spark-component
+        ├── Dockerfile_spark-job
+        └── requirements.txt
+    ├── docker-compose.yaml
     ├── .gitignore
     ├── README.md
-    ├── images
-    ├── sql
-    ├── docker-compose.yaml
-    ├── requirements.txt
 ```
+## Technologies
 
+This project is created with:
+
+- [Apache Kafka](https://kafka.apache.org/documentation/)
+- [Apache Spark](https://spark.apache.org/)
+- [Docker](https://www.docker.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Streamlit](https://streamlit.io/)
+## Setup
+
+1) Clone the repository in your computer.
+2) Run this project:
+```
+docker-compose up 
+```
+3) Access to the dashboard in your browser:
+```
+localhost:8501
+```
 ## Status
 
-- v1 : Streaming Layer : OK
-
-       Correction Batch Layer : WIP
-
+- v1 : Working
 ## Credits
 
 - Cécile Guillot
