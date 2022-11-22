@@ -13,10 +13,10 @@ def collecting_data(url : str):
     data = response.json()
   except:
     print('Wrong URL')
-  with open("tmp/raw/data.json", 'w') as f:
+  with open("./raw/data.json", 'w+') as f:
     json.dump(data, f)
 
-  df = pd.read_json("tmp/raw/data.json")
+  df = pd.read_json("./raw/data.json")
   df.drop(["date_heure", "nature", "column_30"], axis=1, inplace=True)
   
   return df

@@ -32,7 +32,7 @@ services:
     networks:
       - batch_layer
     volumes:
-      - "tmp_folder:tmp/raw/data:rw"
+      - ".:/home/user/app/batch_layer/data:rw"
     depends_on:
       - database 
   streamlit-batch:
@@ -160,9 +160,9 @@ services:
       - mongo
     
 volumes:
+    data:
     eco2mix_postgres_data:
     mongodata:
-    tmp_folder:
 networks:
     batch_layer:
     streaming_layer:
