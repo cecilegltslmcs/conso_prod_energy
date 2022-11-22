@@ -35,7 +35,7 @@ All the microservices are containerized in Docker container.
         └── requirements.txt
     ├── docker-compose.yaml
     ├── .gitignore
-    ├── README.md
+    └── README.md
 ```
 ## Technologies
 
