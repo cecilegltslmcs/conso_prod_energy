@@ -1,5 +1,3 @@
-CREATE DATABASE energy_consumption;
-
 CREATE TABLE IF NOT EXISTS CONSUMPTION (
   id_consommation VARCHAR(42),
   code_insee_region VARCHAR(42),
