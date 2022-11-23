@@ -34,7 +34,6 @@ spec:
     name: kafka-producer
 ---
 apiVersion: v1
-kind: apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: spark-master
@@ -52,7 +51,7 @@ spec:
       containers:
       - name: spark-component
         image: sylveriance/spark-component
-        imagePullPolicy: Present
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7077
           name: spark-master
