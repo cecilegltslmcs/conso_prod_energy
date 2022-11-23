@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dashboard
+spec:
+  containers:
+  - image: 'sylveriance/dashboard-streamlit'
+    name: dashboard
+    imagePullPolicy: IfNotPresent
+    containerPort: 8051
+
