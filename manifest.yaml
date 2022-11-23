@@ -32,21 +32,38 @@ spec:
       value: 1
   - image: 'sylveriance/kafka-producer'
     name: kafka-producer
+  - image: 'sylveriance/spark-job'
+    name: spark-job
+  - image: 'mongo:latest'
+    name: mongo
+    env:
+    - name: MONGO_INITDB_DATABASE
+      value: energy_consumption
+    containerPort: 27017
+    volumeMounts:
+    - name: data
+      mountPath: /var/lib/mongo
+    volumes:
+    - name: data
+      emptyDir: {}
+    - image: 'sylveriance/dashboard-streamlit'
+      name: dashboard
+      containerPort: 8051
 ---
 apiVersion: v1
 kind: StatefulSet
 metadata:
-  name: spark-master
+  name: spark
 spec:
-  serviceName: "spark-master"
+  serviceName: "spark"
   selector:
     matchLabels:
-      app: spark-master
+      app: spark
   replicas: 1
   template:
     metadata:
       labels:
-        app: spark-master
+        app: spark
     spec:
       containers:
       - name: spark-component
@@ -54,7 +71,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7077
-          name: spark-master
+          name: spark
       env:
       - name: SPARK_MODE
         value: master
@@ -66,3 +83,40 @@ spec:
         value: no
       - name: SPARK_SSL_ENABLED
         value: no
+---
+apiVersion: v1
+kind: StatefulSet
+metadata:
+  name: spark-worker
+spec:
+  serviceName: "spark-worker"
+  selector:
+    matchLabels:
+      app: spark-worker
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spark-worker
+    spec:
+      containers:
+      - name: spark-component
+        image: sylveriance/spark-component
+        imagePullPolicy: IfNotPresent
+      env:
+      - name: SPARK_MODE
+        value: master
+      - name: SPARK_MASTER_URL
+        value: spark://spark:7077
+      - name: SPARK_WORKER_MEMORY
+        value: 1G
+      - name: SPARK_WORKER_CORES
+        value: 2
+      - name: SPARK_RPC_AUTHENTICATION_ENABLED
+        value: no
+      - name: SPARK_RPC_ENCRYPTION_ENABLED
+        value: no
+      - name: SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED
+        value: no
+      - name: SPARK_SSL_ENABLED
+        value: no  
