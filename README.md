@@ -33,6 +33,7 @@ All the microservices are containerized in Docker container.
         ├── Dockerfile_spark-component
         ├── Dockerfile_spark-job
         └── requirements.txt
+    └── build/ --> contains files for k8s
     ├── docker-compose.yaml
     ├── .gitignore
     └── README.md
@@ -45,6 +46,7 @@ This project is created with:
 - [Apache Spark](https://spark.apache.org/)
 - [API ODRé](https://odre.opendatasoft.com/api/v2/console)
 - [Docker](https://www.docker.com/)
+- [Kubernetes](https://kubernetes.io/fr/)
 - [MongoDB](https://www.mongodb.com/)
 - [Streamlit](https://streamlit.io/)
 ## Setup
