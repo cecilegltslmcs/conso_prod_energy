@@ -5,10 +5,13 @@ metadata:
   namespace: streaming_layer
   labels:
     app.kubernetes.io/component: zookeeper
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: bitnami
 spec:
   selector:
     app: zookeeper
+  containers:
+    image: bitnami/zookeeper
+    name: zookeeper
   ports:
   - port: 2181
     targetPort: 2181
@@ -22,10 +25,13 @@ metadata:
   namespace: streaming_layer
   labels:
     app.kubernetes.io/component: kafka
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: bitnami
 spec:
   selector:
     app: kafka
+  containers:
+    image: bitnami/kafka
+    name: kafka
   ports:
   - port: 9092
     targetPort: 9092
@@ -39,10 +45,13 @@ metadata:
   namespace: streaming_layer
   labels:
     app.kubernetes.io/component: spark
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: bitnami
 spec:
   selector:
     app: spark-master
+  containers:
+    image: bitnami/spark
+    name: spark-master
   ports:
   - port: 7077
     targetPort: 7077
@@ -60,6 +69,9 @@ metadata:
 spec:
   selector:
     app: mongodb
+containers:
+  image: mongodb:latest
+  name: mongodb
   ports:
   - port: 27017
     targetPort: 27017
