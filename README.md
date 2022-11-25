@@ -24,7 +24,7 @@ All the microservices are containerized in Docker container.
     └── app/
         ├── images/
         ├── packages/
-        │   └── module_kafka.py
+            └── module_kafka.py
         ├── app.py
         ├── dashboard.py
         ├── producer.py
