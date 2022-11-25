@@ -14,7 +14,7 @@ This project represents a kappa architecture, which collects, stores and display
 
 ## General Info
 
-From the API of the Open Data Réseaux Electrique (ODRé), data are collected with a kafka broker. These data are processing by a Spark job. Then, the data are storaged in a MongoDB database. Finally, a dashboard allows to visualise the data inside the database.
+From the API of the Open Data Réseaux Energie (ODRé), data are collected with a kafka broker. These data are processing by a Spark job. Then, the data are storaged in a MongoDB database. Finally, a dashboard allows to visualise the data inside the database.
 All the microservices are containerized in Docker container.
 
 ## Folder organisation
@@ -49,6 +49,7 @@ This project is created with:
 - [Kubernetes](https://kubernetes.io/fr/)
 - [MongoDB](https://www.mongodb.com/)
 - [Streamlit](https://streamlit.io/)
+
 ## Setup
 
 1) Clone the repository in your computer.
@@ -63,6 +64,7 @@ localhost:8501
 ## Status
 
 - v1 : Working
+
 ## Credits
 
 - Cécile Guillot
