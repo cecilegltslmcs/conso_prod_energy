@@ -125,14 +125,63 @@ if __name__ == "__main__":
         .select(col('value.*'))
         )
 
-    # query = (df
-    #         .writeStream
-    #         .queryName("tests_prod_electricite")
-    #         .outputMode("append")
-    #         .format("console")
-    #         .start()
-    #         .awaitTermination())
+    # remove not used columns
+    df = df.drop(*('ech_physiques',
+                   'stockage_batterie',
+                   'destockage_batterie',
+                   'eolien_terrestre',
+                   'eolien_offshore',
+                   'flux_physiques_d_auvergne_rhone_alpes_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_bourgogne_franche_comte_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_bretagne_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_centre_val_de_loire_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_grand_est_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_hauts_de_france_vers_nouvelle_aquitaine',
+                   'flux_physiques_d_ile_de_france_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_normandie_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_nouvelle_aquitaine',
+                   'flux_physiques_d_occitanie_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_pays_de_la_loire_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_paca_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_auvergne_rhone_alpes',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_bourgogne_franche_comte',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_bretagne',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_centre_val_de_loire',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_grand_est',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_hauts_de_france',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_ile_de_france',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_normandie',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_occitanie',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_pays_de_la_loire',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_paca',
+                   'flux_physiques_allemagne_vers_nouvelle_aquitaine',
+                   'flux_physiques_belgique_vers_nouvelle_aquitaine',
+                   'flux_physiques_espagne_vers_nouvelle_aquitaine',
+                   'flux_physiques_italie_vers_nouvelle_aquitaine',
+                   'flux_physiques_luxembourg_vers_nouvelle_aquitaine',
+                   'flux_physiques_royaume_uni_vers_nouvelle_aquitaine',
+                   'flux_physiques_suisse_vers_nouvelle_aquitaine',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_allemagne',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_belgique',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_espagne',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_italie',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_luxembourg',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_royaume_uni',
+                   'flux_physiques_de_nouvelle_aquitaine_vers_suisse'))
     
+    # processing data before storage
+    df = (df.withColumn("production", F.col('thermique') + F.col('nucleaire') + F.col('eolien')
+                                    + F.col('solaire') + F.col('pompage') + F.col('bioenergies')))
+    
+    df = (df.withColumn("pct_thermique", (F.col("thermique") / F.col("production")) * 100 ))
+    df = (df.withColumn("pct_nucleaire", (F.col("nucleaire") / F.col('production')) * 100))
+    df = (df.withColumn("pct_eolien", (F.col("eolien") / F.col("production")) * 100 ))
+    df = (df.withColumn("pct_solaire", (F.col("solaire") / F.col("production")) * 100 ))
+    df = (df.withColumn("pct_pompage", (F.col("pompage") / F.col("production")) * 100 ))
+    df = (df.withColumn("pct_bioenergies", (F.col("bioenergies") / F.col("production")) * 100 ))
+    
+    # write into MongoDB
     query = (df
             .writeStream
             .foreach(WriteRowMongo())
