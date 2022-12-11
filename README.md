@@ -1,8 +1,18 @@
-# Energy production and consumption in France, region by regionin real time
+# Energy consumption and production in France, region by region, in real time
 
 *Update: 11/12/2022*
 
-This project represents a kappa architecture, which collects, stores and displays data about about energy production and consumption in France. 
+This projects used a kappa architecture. This kind of architecture is optimized to process data in real time. A kappa architecture is caracterized by different components :
+- a component which collect data
+- a component which process data
+- a component which store data
+- a component which display data.
+
+The architecture used is summarized in this schema.
+
+[Insert schema]
+
+
 
 ## Table of contents
 * [General info](#general-info)
@@ -43,7 +53,7 @@ This application has been developed in different microservices. This process can
 ```
 ## Technologies
 
-This project is created with:
+Technologies used in this project are:
 
 - [Apache Kafka](https://kafka.apache.org/documentation/)
 - [Apache Spark](https://spark.apache.org/)
@@ -51,7 +61,8 @@ This project is created with:
 - [Docker](https://www.docker.com/)
 - [Kubernetes](https://kubernetes.io/fr/)
 - [MongoDB](https://www.mongodb.com/)
-- [Streamlit](https://streamlit.io/)
+- ~~[Streamlit](https://streamlit.io/)~~
+- [Dash](https://dash.plotly.com/introduction)
 
 ## Setup
 
