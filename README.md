@@ -1,6 +1,6 @@
-# Energy production and consumption in France, region by region, from 2012 to 2022
+# Energy production and consumption in France, region by regionin real time
 
-*Update: 23/11/2022*
+*Update: 11/12/2022*
 
 This project represents a kappa architecture, which collects, stores and displays data about about energy production and consumption in France. 
 
