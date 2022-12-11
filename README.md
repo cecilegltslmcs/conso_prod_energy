@@ -14,8 +14,11 @@ This project represents a kappa architecture, which collects, stores and display
 
 ## General Info
 
-From the API of the Open Data Réseaux Energie (ODRé), data are collected with a kafka broker. These data are processing by a Spark job. Then, the data are storaged in a MongoDB database. Finally, a dashboard allows to visualise the data inside the database.
-All the microservices are containerized in Docker container.
+From the API of the Open Data Réseaux Energie (ODRé), data are collected with a Kafka broker. This data is processed by a Spark application before being stored in a MongoDB database. Finally, a dashboard is used to visualize the data inside the database. 
+Initially, this dashboard was made using the Streamlit library. However, tools such as Streamlit are not suitable for Big Data problems.  
+
+Therefore, a new version of the dashboard will be developed with Flask (associated with Dash and Plotly).
+This application has been developed in different microservices. This process can allow us to containerize each microservice in several Docker containers.
 
 ## Folder organisation
 
