@@ -43,7 +43,7 @@ if __name__ == "__main__":
         .getOrCreate())
     sc = spark.sparkContext.setLogLevel("ERROR")
 
-    # Schema definition & data selection
+    # Schema definition
     schema = StructType([
         StructField("code_insee_region", StringType(), True),
         StructField("libelle_region", StringType(), True),
@@ -170,16 +170,21 @@ if __name__ == "__main__":
                    'flux_physiques_de_nouvelle_aquitaine_vers_royaume_uni',
                    'flux_physiques_de_nouvelle_aquitaine_vers_suisse'))
     
-    # processing data before storage
-    df = (df.withColumn("production", F.col('thermique') + F.col('nucleaire') + F.col('eolien')
-                                    + F.col('solaire') + F.col('pompage') + F.col('bioenergies')))
+    # modifying na by 0
+    df = df.na.fill(value = 0)
+
+    df = df.dropDuplicates()
+
+    # create new variables before storage
+    df = (df.withColumn("production", df.thermique + df.nucleaire + df.eolien
+                                    + df.solaire + df.pompage + df.bioenergies))
     
-    df = (df.withColumn("pct_thermique", (F.col("thermique") / F.col("production")) * 100 ))
-    df = (df.withColumn("pct_nucleaire", (F.col("nucleaire") / F.col('production')) * 100))
-    df = (df.withColumn("pct_eolien", (F.col("eolien") / F.col("production")) * 100 ))
-    df = (df.withColumn("pct_solaire", (F.col("solaire") / F.col("production")) * 100 ))
-    df = (df.withColumn("pct_pompage", (F.col("pompage") / F.col("production")) * 100 ))
-    df = (df.withColumn("pct_bioenergies", (F.col("bioenergies") / F.col("production")) * 100 ))
+    df = df.withColumn("pct_thermique", (df.thermique / df.production) * 100)
+    df = df.withColumn("pct_nucleaire", (df.nucleaire / df.production) * 100)
+    df = df.withColumn("pct_eolien", (df.eolien / df.production) * 100)
+    df = df.withColumn("pct_solaire", (df.solaire / df.production) * 100)
+    df = df.withColumn("pct_pompage", (df.pompage / df.production) * 100)
+    df = df.withColumn("pct_bioenergies", (df.bioenergies / df.production) * 100)
     
     # write into MongoDB
     query = (df
