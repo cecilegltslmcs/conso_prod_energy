@@ -1,12 +1,12 @@
 # Energy consumption and production in France, region by region, in real time
 
-*Update: 11/12/2022*
+*Update: 12/12/2022*
 
 This projects used a kappa architecture. This kind of architecture is optimized to process data in real time. A kappa architecture is caracterized by different components :
-- a component which collect data
-- a component which process data
-- a component which store data
-- a component which display data.
+- a component which collects data
+- a component which processes data
+- a component which stores data
+- a component which displays data.
 
 The architecture used is summarized in this schema.
 
@@ -24,11 +24,11 @@ The architecture used is summarized in this schema.
 
 ## General Info
 
-From the API of the Open Data Réseaux Energie (ODRé), data are collected with a Kafka broker. This data is processed by a Spark application before being stored in a MongoDB database. Finally, a dashboard is used to visualize the data inside the database. 
+From the API of the Open Data Réseaux Energie (ODRé), data are collected with a Kafka broker. This data are processed by a Spark application before being stored in a MongoDB database. Finally, a dashboard is used to visualize the data inside the database. 
 Initially, this dashboard was made using the Streamlit library. However, tools such as Streamlit are not suitable for Big Data problems. 
 
 Therefore, a new version of the dashboard will be developed with Flask (associated with Dash and Plotly).
-This application has been developed in different microservices. This process can allow us to containerize each microservice in several Docker containers.
+This application has been developed in different microservices. This process can allow us to containerize each microservices in several Docker containers.
 
 ## Folder organisation
 
@@ -77,7 +77,9 @@ localhost:8501
 ```
 ## Status
 
-- v1 : Working
+- ~~v1: Working~~
+
+- v2: In development
 
 ## Credits
 
