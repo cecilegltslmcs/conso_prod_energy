@@ -1,6 +1,6 @@
 # Energy consumption and production in France, region by region, in real time
 
-*Update: 12/12/2022*
+*Update: 13/12/2022*
 
 This projects used a kappa architecture. This kind of architecture is optimized to process data in real time. A kappa architecture is caracterized by different components :
 - a component which collects data
@@ -10,9 +10,7 @@ This projects used a kappa architecture. This kind of architecture is optimized 
 
 The architecture used is summarized in this schema.
 
-[Insert schema]
-
-
+![schema_architecture](app/images/architecture.png)
 
 ## Table of contents
 * [General info](#general-info)
@@ -46,8 +44,7 @@ This application has been developed in different microservices. This process can
         ├── Dockerfile_spark-component
         ├── Dockerfile_spark-job
         └── requirements.txt
-    └── build/ --> contains files for k8s
-    ├── docker-compose.yaml
+    └── build/ --> contains files for k8s -- WIP
     ├── .gitignore
     └── README.md
 ```
@@ -71,15 +68,18 @@ Technologies used in this project are:
 ```
 docker-compose up 
 ```
-3) Access to the dashboard in your browser:
+3) Access to the dashboard in your browser: *(Only for Streamlit)*
 ```
 localhost:8501
 ```
 ## Status
 
-- ~~v1: Working~~
+- v1: **Worked (with Streamlit)** 
+    - Performance Issue of the dashboard when the DB contains too much data
 
-- v2: In development
+- v2: **In development** 
+    - Addition of replicatSet in MongoDB
+    - Modification of the dashboard in order to obtain  better performance whatever the amount of data
 
 ## Credits
 

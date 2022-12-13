@@ -1,8 +1,12 @@
+from packages.module_dashboard import *
+from pymongo import MongoClient
 import packages.authentification as auth
 import pandas as pd
-from pymongo import MongoClient
 import streamlit as st
 import time
+
+url = "https://www.data.gouv.fr/fr/datasets/r/d993e112-848f-4446-b93b-0a9d5997c4a4"
+region_geojson = loading_geojson(url)
 
 user = auth.mongodb_user
 password = auth.mongodb_password
@@ -16,11 +20,10 @@ def init_connection():
 
 try:
     client = init_connection()
-    print('Connection OK')
+    print("Connection OK")
 except:
-    print('Connection error')
+    print("Connection error")
 
-# Pull data from the collection
 @st.experimental_memo(ttl=1)
 def get_data():
     db = client['electricity_prod']
@@ -28,9 +31,10 @@ def get_data():
     items = list(items)
     return items
 
+
 st.title("Tableau de bord de la consommation et de production d'électricité en France en temps réel")
 st.sidebar.title("Analyses par type de production")
-option = st.sidebar.selectbox("Choississez une page.", ('Accueil', 'Consommation moyenne'))
+option = st.sidebar.selectbox("Choississez une page.", ('Accueil', 'General', 'Consommation', 'Production totale'))
 
 if option == "Accueil":
     col1, col2, col3 = st.columns(3)
@@ -40,7 +44,7 @@ if option == "Accueil":
         st.image("images/logo-odre.svg", width=75)
     with col3:
         st.write(' ')
-    st.header("Bienvenue sur cet outil qui vous permet de consulter l'historique des consommations et production d'électricité région par région en France en temps réel.\
+    st.header("Bienvenue sur cet outil qui vous permet de consulter les consommations et productions d'électricité région par région en France en temps réel.\
                Sélectionnez une analyse sur le menu de gauche pour continuer.")
     st.image("images/power-lines.jpg")
     st.write("Réalisé par Cécile Guillot - Données provenant de l'API Open Data Réseaux électriques")
@@ -53,10 +57,20 @@ while True:
     with placeholder.container():
         df = pd.DataFrame(items)
 
-        if option == "Consommation moyenne":
+        if option == "General":
             counts = len(df.index)
-            st.header("Informations concernant la consommation d'énergie")
-            st.write("Nombre d'enregistrements:", counts)
-            st.dataframe(df)
+            st.write(df)
 
-        time.sleep(1)
+        if option == "Consommation":
+            counts = len(df.index)
+            st.header("Informations concernant la consommation d'énergie en temps réel")
+            fig = choropleth_map(df, region_geojson, mean(df.consommation))
+            st.write(fig)
+        
+        if option == "Production totale":
+            counts = len(df.index)
+            st.header("Informations concernant la production d'énergie en temps réel")
+            fig = choropleth_map(df, region_geojson, mean(df.production))
+            st.write(fig)
+
+        time.sleep(900)
