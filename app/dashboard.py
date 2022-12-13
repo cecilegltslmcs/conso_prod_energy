@@ -31,10 +31,8 @@ def get_data():
     items = list(items)
     return items
 
-
 st.title("Tableau de bord de la consommation et de production d'électricité en France en temps réel")
-st.sidebar.title("Analyses par type de production")
-option = st.sidebar.selectbox("Choississez une page.", ('Accueil', 'General', 'Consommation', 'Production totale'))
+option = st.sidebar.selectbox("Choississez une page.", ('Accueil', 'Général', 'Consommation', 'Production totale', 'Répartition production'))
 
 if option == "Accueil":
     col1, col2, col3 = st.columns(3)
@@ -47,7 +45,7 @@ if option == "Accueil":
     st.header("Bienvenue sur cet outil qui vous permet de consulter les consommations et productions d'électricité région par région en France en temps réel.\
                Sélectionnez une analyse sur le menu de gauche pour continuer.")
     st.image("images/power-lines.jpg")
-    st.write("Réalisé par Cécile Guillot - Données provenant de l'API Open Data Réseaux électriques")
+    st.write("Réalisé par Cécile Guillot - Données provenant de l'API Open Data Réseaux-Energies")
 
 placeholder = st.empty()
     
@@ -57,20 +55,24 @@ while True:
     with placeholder.container():
         df = pd.DataFrame(items)
 
-        if option == "General":
+        if option == "Général":
             counts = len(df.index)
+            st.write("Nombre d'entrées : ", counts)
             st.write(df)
 
         if option == "Consommation":
-            counts = len(df.index)
-            st.header("Informations concernant la consommation d'énergie en temps réel")
-            fig = choropleth_map(df, region_geojson, mean(df.consommation))
-            st.write(fig)
+            st.header("Carte de la consommation d'énergie en temps réel (mise à jour toutes les 15 minutes)")
+            map_conso = choropleth_map(df, region_geojson, df.consommation)
+            st.write(map_conso)
         
         if option == "Production totale":
-            counts = len(df.index)
-            st.header("Informations concernant la production d'énergie en temps réel")
-            fig = choropleth_map(df, region_geojson, mean(df.production))
-            st.write(fig)
+            st.header("Carte de la production d'énergie en temps réel (mise à jour toutes les 15 minutes)")
+            map_prod = choropleth_map(df, region_geojson, df.production)
+            st.write(map_prod)
+        
+        if option == "Répartition production":
+            st.header("Graphique de la répartition de la production d'énergie par type (mise à jour toutes les 15 minutes)")
+            chart = stack_chart(df)
+            st.write(chart)
 
-        time.sleep(900)
+        time.sleep(1)

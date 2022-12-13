@@ -21,3 +21,8 @@ def choropleth_map(dataset, geojson, color):
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     return fig
 
+def stack_chart(df):
+    fig = px.bar(df, x = "libelle_region", y=["pct_thermique", "pct_nucleaire",
+                                              "pct_eolien", "pct_solaire",
+                                              "pct_pompage", "pct_bioenergies"])
+    return fig
