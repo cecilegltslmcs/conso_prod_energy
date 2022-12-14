@@ -36,6 +36,7 @@ services:
       - network_app
     depends_on:
       - kafka
+
   spark:
     container_name: spark
     build:
@@ -100,15 +101,16 @@ services:
       - spark-app
 
   dashboard:
-    container_name: streamlit
+    container_name: dashboard
+    restart: always
     build:
       context: ./app/
       dockerfile: Dockerfile_dashboard
     ports:
-      - "8501:8501"
+      - "8050:8050"
     networks:
       - network_app
-    depends_on: 
+    depends_on:
       - mongo
 
 volumes:
