@@ -4,7 +4,7 @@ services:
     image: 'bitnami/zookeeper:latest'
     container_name: zookeeper
     networks:
-      - streaming_layer
+      - network_app
     ports:
       - "2181:2181"
     environment:
@@ -14,7 +14,7 @@ services:
     image: 'bitnami/kafka:latest'
     container_name: kafka_server
     networks:
-      - streaming_layer
+      - network_app
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
@@ -33,7 +33,7 @@ services:
       context: ./app/
       dockerfile: Dockerfile_kafka-component
     networks:
-      - streaming_layer
+      - network_app
     depends_on:
       - kafka
   spark:
@@ -50,7 +50,7 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
     networks:
-      - streaming_layer
+      - network_app
     depends_on:
       - kafka
 
@@ -68,7 +68,7 @@ services:
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no  
     networks:
-      - streaming_layer
+      - network_app
     depends_on:
       - spark
 
@@ -77,10 +77,11 @@ services:
       context: ./app/
       dockerfile: Dockerfile_spark-job
     networks:
-      - streaming_layer
+      - network_app
     depends_on:
       - kafka
       - spark
+
   mongo:
     container_name: mongo
     image: mongo:latest
@@ -88,7 +89,7 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - streaming_layer
+      - network_app
     environment:
       - MONGO_INITDB_DATABASE = energy_consumption
     env_file:
@@ -98,7 +99,7 @@ services:
     depends_on:
       - spark-app
 
-  streamlit-stream:
+  dashboard:
     container_name: streamlit
     build:
       context: ./app/
@@ -106,11 +107,11 @@ services:
     ports:
       - "8501:8501"
     networks:
-      - streaming_layer
+      - network_app
     depends_on: 
       - mongo
 
 volumes:
     mongodata:
 networks:
-    streaming_layer:
+    network_app:
