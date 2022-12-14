@@ -56,10 +56,10 @@ Technologies used in this project are:
 - [Apache Spark](https://spark.apache.org/)
 - [API ODRé](https://odre.opendatasoft.com/api/v2/console)
 - [Docker](https://www.docker.com/)
+- [Flask](https://flask.palletsprojects.com/en/2.2.x/)
 - [Kubernetes](https://kubernetes.io/fr/)
 - [MongoDB](https://www.mongodb.com/)
 - [Streamlit](https://streamlit.io/)
-- [Dash](https://dash.plotly.com/introduction)
 
 ## Setup
 
