@@ -59,7 +59,7 @@ Technologies used in this project are:
 - [Docker](https://www.docker.com/)
 - [Kubernetes](https://kubernetes.io/fr/)
 - [MongoDB](https://www.mongodb.com/)
-- [Streamlit](https://streamlit.io/)
+- ~~[Streamlit](https://streamlit.io/)~~ (replaced in v2)
 
 ## Setup
 
