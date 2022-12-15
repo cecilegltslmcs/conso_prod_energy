@@ -39,7 +39,7 @@ if __name__ == "__main__":
         .config("spark.mongodb.input.uri", uri)
         .config("spark.mongodb.output.uri", uri)
         .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2")
-        .appName("electricity_prod_conso")
+        .appName("energy_prod_conso")
         .getOrCreate())
     sc = spark.sparkContext.setLogLevel("ERROR")
 
@@ -175,7 +175,7 @@ if __name__ == "__main__":
 
     df = df.dropDuplicates()
 
-    # create new variables before storage
+    # create new variables related to production informations
     df = (df.withColumn("production", df.thermique + df.nucleaire + df.eolien
                                     + df.solaire + df.pompage + df.bioenergies))
     
@@ -185,6 +185,9 @@ if __name__ == "__main__":
     df = df.withColumn("pct_solaire", (df.solaire / df.production) * 100)
     df = df.withColumn("pct_pompage", (df.pompage / df.production) * 100)
     df = df.withColumn("pct_bioenergies", (df.bioenergies / df.production) * 100)
+
+    # create variable to calculate difference between prod & consumption
+    df = df.withColumn("diff", (df.consommation - df.production))
     
     # write into MongoDB
     query = (df
