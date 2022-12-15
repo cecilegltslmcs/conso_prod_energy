@@ -43,8 +43,9 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title = "Dashboard de la consommation et de la production d'énergie"
 
-fig_conso = choropleth_map(df, region_geojson, df.consommation)
-fig_prod = choropleth_map(df, region_geojson, df.production)
+map_conso = choropleth_map(df, region_geojson, df.consommation)
+map_prod = choropleth_map(df, region_geojson, df.production)
+map_diff = choropleth_map(df, region_geojson, df.diff)
 stack_prod = stack_chart(df)
 
 
@@ -56,6 +57,7 @@ app.layout = html.Div([
         dcc.Tabs(id="tabs", value='tab-1', children=[
             dcc.Tab(label="Consommation", value="tab-1"),
             dcc.Tab(label="Production", value="tab-2"),
+            dcc.Tab(label="Difference ", value="tab-3")
         ]),
         html.Div(id="tabs-content")
         ])
@@ -66,13 +68,18 @@ def render_content(tab):
     if tab == "tab-1":
         return html.Div([
             html.H3("Données de consommation en temps réel (actualisation toutes les 15 minutes)"),
-            dcc.Graph(figure=fig_conso)
+            dcc.Graph(figure=map_conso)
         ])
     elif tab == "tab-2":
         return html.Div([
             html.H3("Données de production en temps réel (actualisation toutes les 15 minutes)"),
-            dcc.Graph(figure=fig_prod),
+            dcc.Graph(figure=map_prod),
             dcc.Graph(figure=stack_prod)
+        ])
+    elif tab == "tab-3":
+        return html.Div([
+            html.H3("Données de production en temps réel (actualisation toutes les 15 minutes)"),
+            dcc.Graph(figure=map_diff)
         ])
 
 if __name__ == "__main__":
