@@ -1,6 +1,6 @@
 # Energy consumption and production in France, region by region, in real time
 
-*Update: 13/12/2022*
+*Update: 15/12/2022*
 
 This projects used a kappa architecture. This kind of architecture is optimized to process data in real time. A kappa architecture is caracterized by different components :
 - a component which collects data
@@ -55,8 +55,8 @@ Technologies used in this project are:
 - [Apache Kafka](https://kafka.apache.org/documentation/)
 - [Apache Spark](https://spark.apache.org/)
 - [API ODRé](https://odre.opendatasoft.com/api/v2/console)
+- [Dash](https://dash.plotly.com/)
 - [Docker](https://www.docker.com/)
-- [Flask](https://flask.palletsprojects.com/en/2.2.x/)
 - [Kubernetes](https://kubernetes.io/fr/)
 - [MongoDB](https://www.mongodb.com/)
 - [Streamlit](https://streamlit.io/)
@@ -68,18 +68,18 @@ Technologies used in this project are:
 ```
 docker-compose up 
 ```
-3) Access to the dashboard in your browser: *(Only for Streamlit)*
+3) Access to the dashboard in your browser:
 ```
-localhost:8501
+0.0.0.0:8051
 ```
 ## Status
 
-- v1: **Worked (with Streamlit)** 
+- v1: **Archived** 
     - Performance Issue of the dashboard when the DB contains too much data
 
 - v2: **In development** 
-    - Addition of replicatSet in MongoDB
     - Modification of the dashboard in order to obtain  better performance whatever the amount of data
+    - Addition of replicatSet in MongoDB
 
 ## Credits
 
