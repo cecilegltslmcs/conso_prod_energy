@@ -1,13 +1,14 @@
-import packages.authentification as auth
+import time
 import pymongo
 from pyspark.sql import functions as F
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col
 from pyspark.sql.types import StringType, StructType, StructField, FloatType, IntegerType, TimestampType
-import time
+import packages.authentification as auth
 
 time.sleep(10)
 
+# create variables used for stream & identification
 ip_server = "kafka:9092"
 topic_name = "electricity_production"
 user = auth.mongodb_user
