@@ -1,5 +1,5 @@
-import plotly.express as px
 import requests
+import plotly.express as px
 
 def loading_geojson(url):
     try:
