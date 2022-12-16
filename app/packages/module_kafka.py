@@ -1,6 +1,6 @@
+import json
 import requests
 from kafka import KafkaProducer
-import json
 
 def get_data(url):
     resp = requests.get(url)
