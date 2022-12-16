@@ -1,5 +1,5 @@
-from packages.module_kafka import *
 import time
+from packages.module_kafka import *
 
 if __name__ == "__main__":
     ip = "kafka:9092"
