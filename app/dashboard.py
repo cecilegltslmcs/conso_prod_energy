@@ -1,11 +1,11 @@
+import os
 from dash import Dash, dcc, html
 from dash.dependencies import Input, Output
-import os
+import pandas as pd
 import plotly.io as pio
 from pymongo import MongoClient
 import packages.authentification as auth
 from packages.module_dashboard import *
-import pandas as pd
 
 user = auth.mongodb_user
 password = auth.mongodb_password
