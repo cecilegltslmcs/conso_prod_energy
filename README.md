@@ -1,6 +1,6 @@
 # Energy consumption and production in France, region by region, in real time
 
-*Update: 15/12/2022*
+*Update: 02/01/2023*
 
 This projects used a kappa architecture. This kind of architecture is optimized to process data in real time. A kappa architecture is caracterized by different components :
 - a component which collects data
@@ -78,8 +78,9 @@ docker-compose up
     - Performance Issue of the dashboard when the DB contains too much data
 
 - v2: **In development** 
-    - Modification of the dashboard in order to obtain  better performance whatever the amount of data
-    - Addition of replicatSet in MongoDB
+    - ~~Modification of the dashboard in order to obtain  better performance whatever the amount of data~~
+    - ~~Addition of data processing with Apache Spark~~
+    - Addition of replicatSet in MongoDB (in progress).
 
 ## Credits
 
