@@ -43,15 +43,15 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title = "Dashboard de la consommation et de la production d'énergie"
 
-map_conso = choropleth_map(df, region_geojson, df.consommation)
-map_prod = choropleth_map(df, region_geojson, df.production)
-map_diff = choropleth_map(df, region_geojson, df.diff)
+map_conso = choropleth_map(df, region_geojson, "consommation")
+map_prod = choropleth_map(df, region_geojson, "production")
+map_diff = choropleth_map(df, region_geojson, "diff")
 stack_prod = stack_chart(df)
 
 
 app.layout = html.Div([
     html.Div([
-        dcc.H4("""# Tableau de bord de la consommation et de la production d'énergie en France en temps réel
+        dcc.H3("""# Tableau de bord de la consommation et de la production d'énergie en France en temps réel
     Cette application permet de visualiser les données de consommation et de production d'énergie région par région. Les données présentées sont actualisées toutes les 15 minutes.
     Source : [Open Data Réseaux-Energies](https://opendata.reseaux-energies.fr/)""")]),
         dcc.Tabs(id="tabs", value='tab-1', children=[

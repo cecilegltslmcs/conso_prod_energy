@@ -9,11 +9,12 @@ def loading_geojson(url):
         print("Wrong URL")
     return response
 
-def choropleth_map(dataset, geojson, color):
-    fig = px.choropleth_mapbox(dataset, geojson=geojson,
+def choropleth_map(dataset, geojson, column):
+    fig = px.choropleth_mapbox(dataset, 
+                               geojson = geojson,
                                featureidkey="properties.reg",
                                locations='code_insee_region',
-                               color=color,
+                               color = column,
                                color_continuous_scale="rdylbu_r",
                                mapbox_style="carto-positron",
                                zoom=4, center = {"lat": 46.2276, "lon": 2.21},
