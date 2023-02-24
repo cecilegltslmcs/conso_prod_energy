@@ -44,7 +44,6 @@ This application has been developed in different microservices. This process can
         ├── Dockerfile_spark-component
         ├── Dockerfile_spark-job
         └── requirements.txt
-    └── build/ --> contains files for k8s -- WIP
     ├── .gitignore
     └── README.md
 ```
@@ -75,7 +74,7 @@ docker-compose up
 ## Status
 
 - v1: **Archived** 
-    - Performance Issue of the dashboard when the DB contains too much data
+    - Performance issue of the dashboard when the DB contains too much data
 
 - v2: **In development** 
     - ~~Modification of the dashboard in order to obtain  better performance whatever the amount of data~~
