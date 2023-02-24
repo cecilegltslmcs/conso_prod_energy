@@ -18,6 +18,7 @@ The architecture used is summarized in this schema.
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Status](#status)
+* [Illustration](#illustration)
 * [Credits](#credits)
 
 ## General Info
