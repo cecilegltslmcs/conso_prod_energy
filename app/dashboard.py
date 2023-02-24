@@ -50,10 +50,16 @@ stack_prod = stack_chart(df)
 
 
 app.layout = html.Div([
-    html.Div([
-        dcc.H3("""# Tableau de bord de la consommation et de la production d'énergie en France en temps réel
-    Cette application permet de visualiser les données de consommation et de production d'énergie région par région. Les données présentées sont actualisées toutes les 15 minutes.
-    Source : [Open Data Réseaux-Energies](https://opendata.reseaux-energies.fr/)""")]),
+        html.H1(children="""Tableau de bord de la consommation et de la production d'énergie en France en temps réel
+    Cette application permet de visualiser les données de consommation et de production d'énergie région par région. Les données présentées sont actualisées toutes les 15 minutes.""",
+                style={
+                    'textAlign' : 'center',
+                }),
+        html.Div(children="Source : https://opendata.reseaux-energies.fr/",
+                 style={
+                     'textAlign' : 'justify',
+                     'fontStyle' : 'italic'
+                 }),
         dcc.Tabs(id="tabs", value='tab-1', children=[
             dcc.Tab(label="Consommation", value="tab-1"),
             dcc.Tab(label="Production", value="tab-2"),
