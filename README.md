@@ -69,7 +69,7 @@ docker-compose up
 ```
 3) Access to the dashboard in your browser:
 ```
-0.0.0.0:8051
+0.0.0.0:8050
 ```
 ## Status
 
