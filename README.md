@@ -83,7 +83,7 @@ docker-compose up
 
 ## Illustration
 
-![vue_dashboard.png](app%2Fimages%2Fvue_dashboard.png)
+![vue_dashboard.png](app/images/vue_dashboard.png)
 *Dashboard in the date of 25/02/2023*
 
 ## Credits
