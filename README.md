@@ -1,6 +1,6 @@
 # Energy consumption and production in France, region by region, in real time
 
-*Update: 05/01/2023*
+*Update: 24/02/2023*
 
 This projects used a kappa architecture. This kind of architecture is optimized to process data in real time. A kappa architecture is caracterized by different components :
 - a component which collects data
