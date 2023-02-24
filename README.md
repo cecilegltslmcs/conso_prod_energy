@@ -1,6 +1,6 @@
 # Energy consumption and production in France, region by region, in real time
 
-*Update: 24/02/2023*
+*Update: 25/02/2023*
 
 This projects used a kappa architecture. This kind of architecture is optimized to process data in real time. A kappa architecture is caracterized by different components :
 - a component which collects data
@@ -56,7 +56,6 @@ Technologies used in this project are:
 - [API ODRé](https://odre.opendatasoft.com/api/v2/console)
 - [Dash](https://dash.plotly.com/)
 - [Docker](https://www.docker.com/)
-- [Kubernetes](https://kubernetes.io/fr/)
 - [MongoDB](https://www.mongodb.com/)
 - ~~[Streamlit](https://streamlit.io/)~~ (replaced in v2)
 
@@ -69,7 +68,7 @@ docker-compose up
 ```
 3) Access to the dashboard in your browser:
 ```
-0.0.0.0:8051
+0.0.0.0:8050
 ```
 ## Status
 
@@ -77,9 +76,15 @@ docker-compose up
     - Performance issue of the dashboard when the DB contains too much data
 
 - v2: **In development** 
-    - ~~Modification of the dashboard in order to obtain  better performance whatever the amount of data~~
-    - ~~Addition of data processing with Apache Spark~~
-    - Addition of replicatSet in MongoDB (in progress).
+    - Modification of the dashboard in order to obtain better performance whatever the amount of data (OK)
+    - Addition of data processing with Apache Spark (OK)
+    - Addition of replica Set in MongoDB (in progress). ---> In v3
+    - Working on the front-end of the dashboard (WIP)
+
+## Illustration
+
+![vue_dashboard.png](app%2Fimages%2Fvue_dashboard.png)
+*Dashboard in the date of 25/02/2023*
 
 ## Credits
 

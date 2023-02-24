@@ -48,45 +48,33 @@ map_prod = choropleth_map(df, region_geojson, "production")
 map_diff = choropleth_map(df, region_geojson, "diff")
 stack_prod = stack_chart(df)
 
-
 app.layout = html.Div([
-        html.H1(children="""Tableau de bord de la consommation et de la production d'énergie en France en temps réel
-    Cette application permet de visualiser les données de consommation et de production d'énergie région par région. Les données présentées sont actualisées toutes les 15 minutes.""",
+        html.H1(children="Tableau de bord de la consommation et de la production d'énergie en France en temps réel",
                 style={
                     'textAlign' : 'center',
                 }),
+        html.Div(children="Cette application permet de visualiser les données de consommation et de production d'énergie région par région. Les données présentées sont actualisées toutes les 15 minutes.",
+                 style={
+                     'textAlign': 'justify',
+                 }),
         html.Div(children="Source : https://opendata.reseaux-energies.fr/",
                  style={
                      'textAlign' : 'justify',
                      'fontStyle' : 'italic'
                  }),
-        dcc.Tabs(id="tabs", value='tab-1', children=[
-            dcc.Tab(label="Consommation", value="tab-1"),
-            dcc.Tab(label="Production", value="tab-2"),
-            dcc.Tab(label="Difference ", value="tab-3")
+        dcc.Tabs([
+            dcc.Tab(label='Consommation', children=[
+                dcc.Graph(figure=map_conso),
+            ]),
+            dcc.Tab(label='Production', children=[
+                dcc.Graph(figure=map_prod),
+                dcc.Graph(figure=stack_prod)
+            ]),
+            dcc.Tab(label='Delta Conso/Prod', children=[
+                dcc.Graph(figure=map_diff)
+            ])
         ]),
-        html.Div(id="tabs-content")
-        ])
-
-@app.callback(Output('tabs-content', 'children'),
-              Input('tabs', 'value'))
-def render_content(tab):
-    if tab == "tab-1":
-        return html.Div([
-            html.H3("Données de consommation en temps réel (actualisation toutes les 15 minutes)"),
-            dcc.Graph(figure=map_conso)
-        ])
-    elif tab == "tab-2":
-        return html.Div([
-            html.H3("Données de production en temps réel (actualisation toutes les 15 minutes)"),
-            dcc.Graph(figure=map_prod),
-            dcc.Graph(figure=stack_prod)
-        ])
-    elif tab == "tab-3":
-        return html.Div([
-            html.H3("Données de production en temps réel (actualisation toutes les 15 minutes)"),
-            dcc.Graph(figure=map_diff)
-        ])
+])
 
 if __name__ == "__main__":
     app.run_server(host="0.0.0.0", port="8050", debug=debug)
