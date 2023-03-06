@@ -80,7 +80,7 @@ docker-compose up
     - Modification of the dashboard in order to obtain better performance whatever the amount of data (OK)
     - Addition of data processing with Apache Spark (OK)
     - Addition of replica Set in MongoDB (in progress). ---> In v3
-    - Working on the front-end of the dashboard (WIP)
+    - Working on the front-end of the dashboard (WIP) ---> Performance issue when DB contains to much data.
 
 ## Illustration
 
