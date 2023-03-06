@@ -1,6 +1,5 @@
 import os
 from dash import Dash, dcc, html
-from dash.dependencies import Input, Output
 import pandas as pd
 import plotly.io as pio
 from pymongo import MongoClient
@@ -62,19 +61,17 @@ app.layout = html.Div([
                      'textAlign' : 'justify',
                      'fontStyle' : 'italic'
                  }),
-        dcc.Tabs([
-            dcc.Tab(label='Consommation', children=[
-                dcc.Graph(figure=map_conso),
-            ]),
-            dcc.Tab(label='Production', children=[
-                dcc.Graph(figure=map_prod),
-                dcc.Graph(figure=stack_prod)
-            ]),
-            dcc.Tab(label='Delta Conso/Prod', children=[
-                dcc.Graph(figure=map_diff)
-            ])
-        ]),
+        html.H3(children="Carte de la consommation en temps réel"),
+        dcc.Graph(id="graph-conso",
+                  figure=map_conso),
+        html.H3(children="Données de production en temps réel"),
+        dcc.Graph(id="map-prod",
+                  figure=map_prod),
+        html.H3(children="Différence entre consommation et production"),
+        dcc.Graph(id="diff",
+                  figure=map_diff)
 ])
+
 
 if __name__ == "__main__":
     app.run_server(host="0.0.0.0", port="8050", debug=debug)
