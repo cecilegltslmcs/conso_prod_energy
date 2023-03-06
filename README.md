@@ -87,8 +87,6 @@ docker-compose up
 ![vue_dashboard.png](app/images/vue_dashboard.png)
 *Dashboard in the date of 06/03/2023*
 
-[Video](https://youtu.be/quo8hF1OHbE)
-
 ## Credits
 
 - Cécile Guillot
