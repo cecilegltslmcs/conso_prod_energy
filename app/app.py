@@ -1,47 +1,35 @@
 import time
-import pymongo
 from pyspark.sql import functions as F
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col
 from pyspark.sql.types import StringType, StructType, StructField, FloatType, IntegerType, TimestampType
-import packages.authentification as auth
+from WriteRowMongo import WriteRowMongo
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 time.sleep(10)
 
 # create variables used for stream & identification
-ip_server = "kafka:9092"
-topic_name = "electricity_production"
-user = auth.mongodb_user
-password = auth.mongodb_password
-host = auth.mongodb_host
-port = auth.mongodb_port
-uri = f"mongodb://{user}:{password}@{host}:{port}"
-
-class WriteRowMongo:
-    def open(self, partition_id, epoch_id):
-        self.myclient = pymongo.MongoClient(uri)
-        self.mydb = self.myclient["electricity_prod"]
-        self.mycol = self.mydb["streaming_data"]
-        return True
-
-    def process(self, row):
-        self.mycol.insert_one(row.asDict())
-
-    def close(self, error):
-        self.myclient.close()
-        return True
+IP_SERVER = "kafka:9092"
+TOPIC_NAME = "electricity_production"
+USER = os.getenv('USER')
+PASSWORD = os.getenv('PASSWORD')
+HOST = os.getenv("HOST")
+PORT = os.getenv("PORT")
+URI = f"mongodb://{USER}:{PASSWORD}@{HOST}:{PORT}"
 
 if __name__ == "__main__":
-
     # initialize sparkSession & sparkContext
     spark = (SparkSession
-        .builder
-        .master('spark://spark:7077')
-        .config("spark.mongodb.input.uri", uri)
-        .config("spark.mongodb.output.uri", uri)
-        .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2")
-        .appName("energy_prod_conso")
-        .getOrCreate())
+             .builder
+             .master('spark://spark:7077')
+             .config("spark.mongodb.input.uri", URI)
+             .config("spark.mongodb.output.uri", URI)
+             .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2")
+             .appName("energy_prod_conso")
+             .getOrCreate())
     sc = spark.sparkContext.setLogLevel("ERROR")
 
     # Schema definition
@@ -64,42 +52,42 @@ if __name__ == "__main__":
         StructField("eolien_terrestre", IntegerType(), True),
         StructField("eolien_offshore", IntegerType(), True),
         StructField("flux_physiques_d_auvergne_rhone_alpes_vers_nouvelle_aquitaine", FloatType(), True),
-        StructField("flux_physiques_de_bourgogne_franche_comte_vers_nouvelle_aquitaine", FloatType(), True), 
+        StructField("flux_physiques_de_bourgogne_franche_comte_vers_nouvelle_aquitaine", FloatType(), True),
         StructField("flux_physiques_de_bretagne_vers_nouvelle_aquitaine", FloatType(), True),
-        StructField("flux_physiques_de_centre_val_de_loire_vers_nouvelle_aquitaine", FloatType(), True), 
+        StructField("flux_physiques_de_centre_val_de_loire_vers_nouvelle_aquitaine", FloatType(), True),
         StructField("flux_physiques_de_grand_est_vers_nouvelle_aquitaine", FloatType(), True),
-        StructField("flux_physiques_de_hauts_de_france_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_d_ile_de_france_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_de_normandie_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_d_occitanie_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_de_pays_de_la_loire_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_de_paca_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_auvergne_rhone_alpes", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_bourgogne_franche_comte", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_bretagne", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_centre_val_de_loire", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_grand_est", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_hauts_de_france", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_ile_de_france", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_normandie", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_occitanie", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_pays_de_la_loire", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_paca", FloatType(), True), 
-        StructField("flux_physiques_allemagne_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_belgique_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_espagne_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_italie_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_luxembourg_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_royaume_uni_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_suisse_vers_nouvelle_aquitaine", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_allemagne", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_belgique", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_espagne", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_italie", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_luxembourg", FloatType(), True), 
-        StructField("flux_physiques_de_nouvelle_aquitaine_vers_royaume_uni", FloatType(), True), 
+        StructField("flux_physiques_de_hauts_de_france_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_d_ile_de_france_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_de_normandie_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_d_occitanie_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_de_pays_de_la_loire_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_de_paca_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_auvergne_rhone_alpes", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_bourgogne_franche_comte", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_bretagne", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_centre_val_de_loire", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_grand_est", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_hauts_de_france", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_ile_de_france", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_normandie", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_occitanie", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_pays_de_la_loire", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_paca", FloatType(), True),
+        StructField("flux_physiques_allemagne_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_belgique_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_espagne_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_italie_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_luxembourg_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_royaume_uni_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_suisse_vers_nouvelle_aquitaine", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_allemagne", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_belgique", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_espagne", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_italie", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_luxembourg", FloatType(), True),
+        StructField("flux_physiques_de_nouvelle_aquitaine_vers_royaume_uni", FloatType(), True),
         StructField("flux_physiques_de_nouvelle_aquitaine_vers_suisse", FloatType(), True),
         StructField("tco_thermique", FloatType(), True),
         StructField("tch_thermique", FloatType(), True),
@@ -113,18 +101,18 @@ if __name__ == "__main__":
         StructField("tch_hydraulique", FloatType(), True),
         StructField("tco_bioenergies", FloatType(), True),
         StructField("tch_bioenergies", FloatType(), True),
-        ])
-    
+    ])
+
     # read Kafka stream
     df = (spark
-        .readStream
-        .format("kafka")
-        .option("kafka.bootstrap.servers", ip_server)
-        .option("subscribe", topic_name)
-        .load()
-        .withColumn("value", from_json(col("value").cast("string"), schema))
-        .select(col('value.*'))
-        )
+          .readStream
+          .format("kafka")
+          .option("kafka.bootstrap.servers", IP_SERVER)
+          .option("subscribe", TOPIC_NAME)
+          .load()
+          .withColumn("value", from_json(col("value").cast("string"), schema))
+          .select(col('value.*'))
+          )
 
     # remove not used columns
     df = df.drop(*('ech_physiques',
@@ -170,16 +158,16 @@ if __name__ == "__main__":
                    'flux_physiques_de_nouvelle_aquitaine_vers_luxembourg',
                    'flux_physiques_de_nouvelle_aquitaine_vers_royaume_uni',
                    'flux_physiques_de_nouvelle_aquitaine_vers_suisse'))
-    
+
     # modifying na by 0
-    df = df.na.fill(value = 0)
+    df = df.na.fill(value=0)
 
     df = df.dropDuplicates()
 
     # create new variables related to production informations
     df = (df.withColumn("production", df.thermique + df.nucleaire + df.eolien
-                                    + df.solaire + df.pompage + df.bioenergies))
-    
+                        + df.solaire + df.pompage + df.bioenergies))
+
     df = df.withColumn("pct_thermique", (df.thermique / df.production) * 100)
     df = df.withColumn("pct_nucleaire", (df.nucleaire / df.production) * 100)
     df = df.withColumn("pct_eolien", (df.eolien / df.production) * 100)
@@ -189,10 +177,10 @@ if __name__ == "__main__":
 
     # create variable to calculate difference between prod & consumption
     df = df.withColumn("diff", (df.consommation - df.production))
-    
+
     # write into MongoDB
     query = (df
-            .writeStream
-            .foreach(WriteRowMongo())
-            .start()
-            .awaitTermination())
+             .writeStream
+             .foreach(WriteRowMongo())
+             .start()
+             .awaitTermination())

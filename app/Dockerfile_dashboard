@@ -4,6 +4,7 @@ ENV DASH_DEBUG_MODE False
 
 COPY . .
 RUN set -ex &&\
+    pip install --upgrade pip &&\
     pip install -r requirements.txt
   
 COPY . ./
